@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useTimeTrackingStore } from '@/stores/timetracking'
 import TimeTrackingGrid from '@/components/grid/TimeTrackingGrid.vue'
 import SaveNotification from '@/components/common/SaveNotification.vue'
+import WorkWeekAnalyzer from '@/components/analytics/WorkWeekAnalyzer.vue'
 
 const store = useTimeTrackingStore()
 
@@ -12,20 +13,29 @@ const lastSavedTime = computed(() => store.lastSaved)
 
 <template>
   <div id="app">
-    <header class="app-header">
-      <div class="header-content">
-        <h1>Time Tracking Application</h1>
-        <div class="header-status">
-          <span class="status-indicator" :class="{ 'online': store.isOnline, 'offline': !store.isOnline }">
-            {{ store.isOnline ? 'Online' : 'Offline' }}
-          </span>
+    <div class="app-layout">
+      <!-- Left Sidebar Header -->
+      <aside class="app-sidebar">
+        <div class="sidebar-header">
+          <h1>Time Tracking Application</h1>
+          <div class="header-status">
+            <span class="status-indicator" :class="{ 'online': store.isOnline, 'offline': !store.isOnline }">
+              {{ store.isOnline ? 'Online' : 'Offline' }}
+            </span>
+          </div>
         </div>
-      </div>
-    </header>
+        
+        <!-- Work Week Analysis in Sidebar -->
+        <div class="sidebar-content">
+          <WorkWeekAnalyzer />
+        </div>
+      </aside>
 
-    <main class="app-main">
-      <TimeTrackingGrid />
-    </main>
+      <!-- Right Main Content -->
+      <main class="app-main">
+        <TimeTrackingGrid />
+      </main>
+    </div>
 
     <!-- Save Notification -->
     <SaveNotification 
@@ -37,36 +47,50 @@ const lastSavedTime = computed(() => store.lastSaved)
 
 <style scoped>
 #app {
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f8f9fa;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
 }
 
-.app-header {
-  background: white;
-  border-bottom: 1px solid #dee2e6;
-  padding: 16px 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.header-content {
-  padding: 0 20px;
+.app-layout {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 
-.app-header h1 {
-  margin: 0;
+/* Left Sidebar */
+.app-sidebar {
+  flex: 0 0 400px;
+  background: white;
+  border-right: 1px solid #dee2e6;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #dee2e6;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.sidebar-header h1 {
+  margin: 0 0 12px 0;
   color: #333;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .header-status {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: flex-start;
 }
 
 .status-indicator {
@@ -75,8 +99,8 @@ const lastSavedTime = computed(() => store.lastSaved)
   gap: 6px;
   font-size: 14px;
   font-weight: 500;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
 .status-indicator::before {
@@ -104,8 +128,26 @@ const lastSavedTime = computed(() => store.lastSaved)
   background-color: #dc3545;
 }
 
+.sidebar-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar-content :deep(.work-week-analyzer) {
+  margin: 0;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+/* Right Main Content */
 .app-main {
-  padding: 0;
+  flex: 1;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+  padding: 20px;
+  min-width: 0; /* Prevents overflow issues */
 }
 
 /* Global styles for the application */
@@ -113,6 +155,7 @@ const lastSavedTime = computed(() => store.lastSaved)
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
+  overflow: hidden;
 }
 
 :global(*) {
@@ -120,20 +163,72 @@ const lastSavedTime = computed(() => store.lastSaved)
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
-  .header-content {
-    padding: 0 16px;
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
+@media (max-width: 1200px) {
+  .app-sidebar {
+    flex: 0 0 350px;
   }
   
-  .app-header h1 {
-    font-size: 20px;
+  .sidebar-content {
+    padding: 16px;
   }
   
   .app-main {
-    padding: 0;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+  
+  .app-sidebar {
+    flex: 0 0 auto;
+    height: auto;
+    max-height: 50vh;
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar-header {
+    padding: 16px;
+  }
+  
+  .sidebar-header h1 {
+    font-size: 18px;
+  }
+  
+  .sidebar-content {
+    padding: 16px;
+    max-height: calc(50vh - 80px);
+    overflow-y: auto;
+  }
+  
+  .app-main {
+    flex: 1;
+    padding: 16px;
+    height: auto;
+    min-height: 50vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-sidebar {
+    max-height: 60vh;
+  }
+  
+  .sidebar-header {
+    padding: 12px;
+  }
+  
+  .sidebar-content {
+    padding: 12px;
+  }
+  
+  .app-main {
+    padding: 12px;
+    min-height: 40vh;
   }
 }
 </style>
