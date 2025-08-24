@@ -3,12 +3,30 @@ import cors from 'cors';
 import fs from 'fs-extra';
 import path from 'path';
 import { randomUUID } from 'crypto';
+import { config } from 'dotenv';
 import { validateTimeEntry, validateTimeEntryUpdate, validateProject } from './middleware/validation';
 import { logger, requestLogger, errorHandler } from './middleware/logger';
 
+// Load environment variables
+config();
+
 const app = express();
 const PORT = process.env.PORT || 3010;
-const DATA_FILE = path.join(__dirname, '..', 'timetracking-data.json');
+
+// Get data file path from environment variable or use default
+const getDataFilePath = (): string => {
+  const dataPath = process.env.DATA_PATH;
+  
+  if (dataPath) {
+    // If path is absolute, use as-is; if relative, resolve from current directory
+    return path.isAbsolute(dataPath) ? dataPath : path.resolve(dataPath);
+  }
+  
+  // Default to project root
+  return path.join(__dirname, '..', 'timetracking-data.json');
+};
+
+const DATA_FILE = getDataFilePath();
 
 // Middleware
 app.use(cors());

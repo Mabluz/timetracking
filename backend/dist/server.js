@@ -8,11 +8,24 @@ const cors_1 = __importDefault(require("cors"));
 const fs_extra_1 = __importDefault(require("fs-extra"));
 const path_1 = __importDefault(require("path"));
 const crypto_1 = require("crypto");
+const dotenv_1 = require("dotenv");
 const validation_1 = require("./middleware/validation");
 const logger_1 = require("./middleware/logger");
+// Load environment variables
+(0, dotenv_1.config)();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3010;
-const DATA_FILE = path_1.default.join(__dirname, '..', 'timetracking-data.json');
+// Get data file path from environment variable or use default
+const getDataFilePath = () => {
+    const dataPath = process.env.DATA_PATH;
+    if (dataPath) {
+        // If path is absolute, use as-is; if relative, resolve from current directory
+        return path_1.default.isAbsolute(dataPath) ? dataPath : path_1.default.resolve(dataPath);
+    }
+    // Default to project root
+    return path_1.default.join(__dirname, '..', 'timetracking-data.json');
+};
+const DATA_FILE = getDataFilePath();
 // Middleware
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
