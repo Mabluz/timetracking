@@ -20,8 +20,33 @@ const fromDate = ref('')
 const toDate = ref('')
 const configuredWorkWeekHours = ref(props.workWeekHours)
 
+// Save date range to localStorage
+const saveDateRange = () => {
+  localStorage.setItem('workWeekAnalyzer_fromDate', fromDate.value)
+  localStorage.setItem('workWeekAnalyzer_toDate', toDate.value)
+}
+
+// Load date range from localStorage
+const loadDateRange = () => {
+  const savedFromDate = localStorage.getItem('workWeekAnalyzer_fromDate')
+  const savedToDate = localStorage.getItem('workWeekAnalyzer_toDate')
+  
+  if (savedFromDate && savedToDate) {
+    fromDate.value = savedFromDate
+    toDate.value = savedToDate
+    return true
+  }
+  return false
+}
+
 // Set default date range (current week)
 const initializeDateRange = () => {
+  // First try to load saved dates from localStorage
+  if (loadDateRange()) {
+    return
+  }
+  
+  // If no saved dates, use current week as default
   const today = new Date()
   const currentWeekStart = new Date(today)
   currentWeekStart.setDate(today.getDate() - today.getDay() + 1) // Monday
@@ -103,6 +128,13 @@ const loadWorkWeekHours = () => {
 
 // Initialize saved work week hours
 loadWorkWeekHours()
+
+// Watch for date changes and save to localStorage
+watch([fromDate, toDate], () => {
+  if (fromDate.value && toDate.value) {
+    saveDateRange()
+  }
+})
 </script>
 
 <template>
