@@ -43,7 +43,7 @@
 
       <!-- Total Hours (calculated) -->
       <div class="excel-grid-cell total-hours">
-        <span class="excel-status info">{{ (localEntry.totalHours || 0).toFixed(2) }}h</span>
+        <span class="total-hours-display">{{ (localEntry.totalHours || 0).toFixed(2) }}h</span>
       </div>
 
       <!-- Projects Summary -->
@@ -59,10 +59,12 @@
         </div>
         <button 
           @click="toggleProjects" 
-          class="excel-btn expand-btn"
+          class="excel-btn expand-btn projects-toggle-btn"
           :class="{ 'expanded': isExpanded }"
+          :title="isExpanded ? 'Hide project details' : 'Show project details'"
         >
-          {{ isExpanded ? '🔽' : '▶️' }}
+          <span class="toggle-icon">{{ isExpanded ? '🔽' : '▶️' }}</span>
+          <span class="toggle-text">{{ isExpanded ? 'Hide' : 'Projects' }}</span>
         </button>
       </div>
 
@@ -370,6 +372,29 @@ const removeProject = (index: number) => {
   color: #495057;
 }
 
+.total-hours-display {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2c3e50;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+}
+
+.total-hours-display:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+  border-color: #ced4da;
+  color: #1a252f;
+}
+
 .calculated-value {
   font-family: 'Courier New', monospace;
   font-size: 14px;
@@ -377,10 +402,14 @@ const removeProject = (index: number) => {
 
 .projects-cell {
   justify-content: space-between;
+  align-items: center;
+  display: flex;
+  gap: 8px;
 }
 
 .projects-summary {
   flex: 1;
+  min-width: 0;
 }
 
 .no-projects {
@@ -410,6 +439,54 @@ const removeProject = (index: number) => {
 
 .expand-btn.expanded {
   color: #007bff;
+}
+
+.projects-toggle-btn {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  padding: 6px 10px;
+  min-width: 80px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-weight: 500;
+  color: #495057;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.projects-toggle-btn:hover {
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  border-color: #ced4da;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.projects-toggle-btn.expanded {
+  background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+  border-color: #17a2b8;
+  color: #0c5460;
+}
+
+.projects-toggle-btn.expanded:hover {
+  background: linear-gradient(135deg, #bee5eb 0%, #a6d9e6 100%);
+  border-color: #138496;
+}
+
+.toggle-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.toggle-text {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .actions-cell {
