@@ -1,0 +1,13 @@
+@echo off
+echo Starting Time Tracking App...
+echo.
+echo Starting backend server...
+start /B cmd /c "cd backend && npm run dev"
+echo Backend server started on port 3010
+echo.
+echo Waiting 3 seconds for backend to initialize...
+timeout /t 3 /nobreak > nul
+echo.
+echo Starting frontend server...
+cd frontend
+npm run dev
