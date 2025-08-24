@@ -47,10 +47,13 @@
         <TimeTrackingRow 
           :entry="entry"
           :is-expanded="expandedRows.has(entry.id)"
+          :is-highlighted="isEntryHighlighted(entry.date)"
+          :is-last-edited="lastEditedEntry === entry.id"
           @update="updateEntry"
           @delete="deleteEntry"
           @toggle-projects="toggleProjectsExpansion"
           @calculate-hours="calculateAndUpdateHours"
+          @entry-edited="handleEntryEdited"
         />
       </template>
 
@@ -95,6 +98,8 @@ const fileInputRef = ref<HTMLInputElement>()
 const sortedTimeEntries = computed(() => store.sortedTimeEntries)
 const loading = computed(() => store.loading)
 const error = computed(() => store.error)
+const highlightDateRange = computed(() => store.highlightDateRange)
+const lastEditedEntry = computed(() => store.lastEditedEntry)
 
 // Methods
 const updateEntry = async (id: string, updates: Partial<TimeEntry>) => {
@@ -130,6 +135,20 @@ const toggleProjectsExpansion = (entryId: string) => {
 const calculateAndUpdateHours = (entryId: string, startTime: string, endTime: string, hoursAway: number) => {
   const totalHours = store.calculateTotalHours(startTime, endTime, hoursAway)
   updateEntry(entryId, { startTime, endTime, hoursAway, totalHours })
+}
+
+const isEntryHighlighted = (entryDate: string): boolean => {
+  if (!highlightDateRange.value) return false
+  
+  const entryDateObj = new Date(entryDate)
+  const fromDateObj = new Date(highlightDateRange.value.fromDate)
+  const toDateObj = new Date(highlightDateRange.value.toDate)
+  
+  return entryDateObj >= fromDateObj && entryDateObj <= toDateObj
+}
+
+const handleEntryEdited = (entryId: string) => {
+  store.setLastEditedEntry(entryId)
 }
 
 const triggerImport = () => {

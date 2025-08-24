@@ -129,12 +129,13 @@ const loadWorkWeekHours = () => {
 // Initialize saved work week hours
 loadWorkWeekHours()
 
-// Watch for date changes and save to localStorage
+// Watch for date changes and save to localStorage and update store
 watch([fromDate, toDate], () => {
   if (fromDate.value && toDate.value) {
     saveDateRange()
+    store.setHighlightDateRange(fromDate.value, toDate.value)
   }
-})
+}, { immediate: true })
 </script>
 
 <template>

@@ -16,7 +16,8 @@ const generateUUID = (): string => {
 const STORAGE_KEYS = {
   TIME_ENTRIES: 'timetracking_entries',
   PROJECTS: 'timetracking_projects',
-  OFFLINE_QUEUE: 'timetracking_offline_queue'
+  OFFLINE_QUEUE: 'timetracking_offline_queue',
+  LAST_EDITED_ENTRY: 'timetracking_last_edited_entry'
 }
 
 const localStorageHelper = {
@@ -85,10 +86,28 @@ const localStorageHelper = {
     this.setOfflineQueue([])
   },
   
+  getLastEditedEntry(): string | null {
+    try {
+      return localStorage.getItem(STORAGE_KEYS.LAST_EDITED_ENTRY)
+    } catch (error) {
+      console.error('Error reading last edited entry from localStorage:', error)
+      return null
+    }
+  },
+  
+  setLastEditedEntry(entryId: string): void {
+    try {
+      localStorage.setItem(STORAGE_KEYS.LAST_EDITED_ENTRY, entryId)
+    } catch (error) {
+      console.error('Error saving last edited entry to localStorage:', error)
+    }
+  },
+
   clearAllData(): void {
     localStorage.removeItem(STORAGE_KEYS.TIME_ENTRIES)
     localStorage.removeItem(STORAGE_KEYS.PROJECTS)
     localStorage.removeItem(STORAGE_KEYS.OFFLINE_QUEUE)
+    localStorage.removeItem(STORAGE_KEYS.LAST_EDITED_ENTRY)
   }
 }
 
@@ -100,6 +119,8 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
   const error = ref<string | null>(null)
   const lastSaved = ref<string | null>(null)
   const isOnline = ref(true)
+  const highlightDateRange = ref<{ fromDate: string; toDate: string } | null>(null)
+  const lastEditedEntry = ref<string | null>(null)
 
   // Getters
   const sortedTimeEntries = computed(() => {
@@ -372,6 +393,19 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     }
   }
 
+  const setHighlightDateRange = (fromDate: string, toDate: string) => {
+    highlightDateRange.value = { fromDate, toDate }
+  }
+
+  const setLastEditedEntry = (entryId: string) => {
+    lastEditedEntry.value = entryId
+    localStorageHelper.setLastEditedEntry(entryId)
+  }
+
+  const loadLastEditedEntry = () => {
+    lastEditedEntry.value = localStorageHelper.getLastEditedEntry()
+  }
+
   // Network status detection
   const checkOnlineStatus = () => {
     isOnline.value = navigator.onLine
@@ -433,6 +467,9 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     // Load data
     await Promise.all([fetchTimeEntries(), fetchProjects()])
     
+    // Load last edited entry
+    loadLastEditedEntry()
+    
     // Sync offline queue if online
     if (isOnline.value) {
       await syncOfflineQueue()
@@ -447,6 +484,8 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     error,
     lastSaved,
     isOnline,
+    highlightDateRange,
+    lastEditedEntry,
     
     // Getters
     sortedTimeEntries,
@@ -462,6 +501,9 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     calculateTotalHours,
     addTodayEntry,
     initialize,
-    setLastSaved
+    setLastSaved,
+    setHighlightDateRange,
+    setLastEditedEntry,
+    loadLastEditedEntry
   }
 })

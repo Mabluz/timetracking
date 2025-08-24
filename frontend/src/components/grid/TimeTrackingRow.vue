@@ -1,7 +1,7 @@
 <template>
   <div class="time-entry-row">
     <!-- Main Row -->
-    <div class="excel-grid-row" :class="{ 'selected': isExpanded }">
+    <div class="excel-grid-row" :class="{ 'selected': isExpanded, 'highlighted': isHighlighted, 'last-edited': isLastEdited }">
       <!-- Date -->
       <div class="excel-grid-cell">
         <DatePicker
@@ -183,6 +183,8 @@ import type { TimeEntry, Project } from '@/types'
 interface Props {
   entry: TimeEntry
   isExpanded: boolean
+  isHighlighted?: boolean
+  isLastEdited?: boolean
 }
 
 interface Emits {
@@ -190,6 +192,7 @@ interface Emits {
   (e: 'delete', id: string): void
   (e: 'toggle-projects', id: string): void
   (e: 'calculate-hours', id: string, startTime: string, endTime: string, hoursAway: number): void
+  (e: 'entry-edited', id: string): void
 }
 
 const props = defineProps<Props>()
@@ -231,12 +234,14 @@ const validateEntry = () => {
 
 // Methods
 const handleFieldChange = () => {
+  emit('entry-edited', localEntry.value.id)
   emit('update', localEntry.value.id, {
     date: localEntry.value.date
   })
 }
 
 const handleTimeChange = () => {
+  emit('entry-edited', localEntry.value.id)
   emit('calculate-hours', 
     localEntry.value.id, 
     localEntry.value.startTime, 
@@ -249,6 +254,7 @@ const handleProjectChange = () => {
   // Only save if all projects have valid names (prevent backend validation errors)
   const hasInvalidProjects = localEntry.value.projects?.some(project => !project.name?.trim())
   if (!hasInvalidProjects) {
+    emit('entry-edited', localEntry.value.id)
     emit('update', localEntry.value.id, {
       projects: localEntry.value.projects
     })
@@ -303,6 +309,25 @@ const removeProject = (index: number) => {
 
 .row-selected {
   background-color: #e3f2fd !important;
+}
+
+.excel-grid-row.highlighted {
+  background-color: #fff3cd !important;
+  border-left: 4px solid #ffc107;
+}
+
+.excel-grid-row.highlighted:hover {
+  background-color: #ffeaa7 !important;
+}
+
+.excel-grid-row.last-edited {
+  background-color: #e8f5e8 !important;
+  border-left: 4px solid #28a745;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.excel-grid-row.last-edited:hover {
+  background-color: #d4f4d4 !important;
 }
 
 .grid-cell {
