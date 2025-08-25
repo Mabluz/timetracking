@@ -1,21 +1,21 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useTimeTrackingStore } from '@/stores/timetracking'
-import TimeTrackingGrid from '@/components/grid/TimeTrackingGrid.vue'
-import SaveNotification from '@/components/common/SaveNotification.vue'
+import TabBar from '@/components/navigation/TabBar.vue'
 import WorkWeekAnalyzer from '@/components/analytics/WorkWeekAnalyzer.vue'
 
 const store = useTimeTrackingStore()
+const route = useRoute()
 
-const showNotification = computed(() => !!store.lastSaved)
-const lastSavedTime = computed(() => store.lastSaved)
+const showWorkWeekAnalyzer = computed(() => route.path !== '/monthly-reports')
 </script>
 
 <template>
   <div id="app">
     <div class="app-layout">
       <!-- Left Sidebar Header -->
-      <aside class="app-sidebar">
+      <aside class="app-sidebar" :class="{ 'hide-analyzer': !showWorkWeekAnalyzer }">
         <div class="sidebar-header">
           <h1>Time Tracking Application</h1>
           <div class="header-status">
@@ -26,22 +26,19 @@ const lastSavedTime = computed(() => store.lastSaved)
         </div>
         
         <!-- Work Week Analysis in Sidebar -->
-        <div class="sidebar-content">
+        <div v-if="showWorkWeekAnalyzer" class="sidebar-content">
           <WorkWeekAnalyzer />
         </div>
       </aside>
 
       <!-- Right Main Content -->
       <main class="app-main">
-        <TimeTrackingGrid />
+        <TabBar />
+        <div class="router-content">
+          <RouterView />
+        </div>
       </main>
     </div>
-
-    <!-- Save Notification -->
-    <SaveNotification 
-      :show="showNotification" 
-      :timestamp="lastSavedTime"
-    />
   </div>
 </template>
 
@@ -68,6 +65,13 @@ const lastSavedTime = computed(() => store.lastSaved)
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  transition: flex 0.3s ease;
+}
+
+.app-sidebar.hide-analyzer {
+  flex: 0 0 0;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .sidebar-header {
@@ -145,9 +149,16 @@ const lastSavedTime = computed(() => store.lastSaved)
 .app-main {
   flex: 1;
   background-color: #f8f9fa;
+  overflow: hidden;
+  min-width: 0; /* Prevents overflow issues */
+  display: flex;
+  flex-direction: column;
+}
+
+.router-content {
+  flex: 1;
   overflow-y: auto;
   padding: 20px;
-  min-width: 0; /* Prevents overflow issues */
 }
 
 /* Global styles for the application */
@@ -172,7 +183,7 @@ const lastSavedTime = computed(() => store.lastSaved)
     padding: 16px;
   }
   
-  .app-main {
+  .router-content {
     padding: 16px;
   }
 }
@@ -205,7 +216,7 @@ const lastSavedTime = computed(() => store.lastSaved)
     overflow-y: auto;
   }
   
-  .app-main {
+  .router-content {
     flex: 1;
     padding: 16px;
     height: auto;
@@ -226,7 +237,7 @@ const lastSavedTime = computed(() => store.lastSaved)
     padding: 12px;
   }
   
-  .app-main {
+  .router-content {
     padding: 12px;
     min-height: 40vh;
   }

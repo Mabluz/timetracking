@@ -57,8 +57,8 @@
             ({{ (projectTotalHours || 0).toFixed(2) }}h)
           </span>
         </div>
-        <button 
-          @click="toggleProjects" 
+        <button
+          @click="toggleProjects"
           class="excel-btn expand-btn projects-toggle-btn"
           :class="{ 'expanded': isExpanded }"
           :title="isExpanded ? 'Hide project details' : 'Show project details'"
@@ -72,8 +72,8 @@
       <div class="excel-grid-cell actions-cell">
         <div class="actions-group">
           <label class="imported-checkbox" title="Mark as imported elsewhere">
-            <input 
-              type="checkbox" 
+            <input
+              type="checkbox"
               v-model="localEntry.imported"
               @change="handleImportedChange"
               class="checkbox-input"
@@ -100,7 +100,7 @@
           ➕ Add Project
         </button>
       </div>
-      
+
       <div class="projects-grid">
         <!-- Project Header -->
         <div class="excel-grid-row excel-grid-header project-grid-row">
@@ -111,8 +111,8 @@
         </div>
 
         <!-- Project Rows -->
-        <div 
-          v-for="(project, index) in localEntry.projects" 
+        <div
+          v-for="(project, index) in localEntry.projects"
           :key="project.id || index"
           class="excel-grid-row project-grid-row"
         >
@@ -147,8 +147,8 @@
             />
           </div>
           <div class="excel-grid-cell">
-            <button 
-              @click="removeProject(index)" 
+            <button
+              @click="removeProject(index)"
               class="excel-btn btn-delete"
               title="Remove project"
             >
@@ -161,13 +161,13 @@
         <div v-if="localEntry.projects && localEntry.projects.length > 0" class="projects-summary-row">
           <div class="summary-text">
             📊 Total allocated: {{ (projectTotalHours || 0).toFixed(2) }}h / {{ (localEntry.totalHours || 0).toFixed(2) }}h
-            <span 
-              v-if="hoursRemaining !== 0" 
+            <span
+              v-if="hoursRemaining !== 0"
               class="excel-status"
-              :class="{ 
-                'error': hoursRemaining < 0, 
+              :class="{
+                'error': hoursRemaining < 0,
                 'warning': hoursRemaining > 0,
-                'success': hoursRemaining === 0 
+                'success': hoursRemaining === 0
               }"
             >
               {{ hoursRemaining > 0 ? `⚠️ ${(hoursRemaining || 0).toFixed(2)}h remaining` : `❌ ${Math.abs(hoursRemaining || 0).toFixed(2)}h over` }}
@@ -212,7 +212,7 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const store = useTimeTrackingStore()
-const localEntry = ref<TimeEntry>({ 
+const localEntry = ref<TimeEntry>({
   ...props.entry,
   imported: props.entry.imported ?? false
 })
@@ -237,7 +237,7 @@ const hoursRemaining = computed(() => {
 // Watch for external changes to the entry
 watch(() => props.entry, (newEntry) => {
   if (!isUpdatingLocally.value) {
-    localEntry.value = { 
+    localEntry.value = {
       ...newEntry,
       imported: newEntry.imported ?? false
     }
@@ -266,10 +266,10 @@ const handleFieldChange = () => {
 
 const handleTimeChange = () => {
   emit('entry-edited', localEntry.value.id)
-  emit('calculate-hours', 
-    localEntry.value.id, 
-    localEntry.value.startTime, 
-    localEntry.value.endTime, 
+  emit('calculate-hours',
+    localEntry.value.id,
+    localEntry.value.startTime,
+    localEntry.value.endTime,
     localEntry.value.hoursAway
   )
 }
@@ -287,12 +287,12 @@ const handleProjectChange = () => {
 
 const handleImportedChange = () => {
   isUpdatingLocally.value = true
-  
+
   emit('entry-edited', localEntry.value.id)
   emit('update', localEntry.value.id, {
     imported: localEntry.value.imported
   })
-  
+
   // Reset the flag after a short delay
   nextTick(() => {
     setTimeout(() => {
@@ -596,13 +596,18 @@ const removeProject = (index: number) => {
 /* Grey-out styling for imported rows */
 .excel-grid-row.imported {
   opacity: 0.6;
-  background-color: #f8f9fa !important;
+  background-color: #acadae !important;
   color: #6c757d;
 }
 
 .excel-grid-row.imported:hover {
   opacity: 0.75;
   background-color: #e9ecef !important;
+}
+
+.excel-grid-row.imported input {
+  background-color: #acadae !important;
+  color: #6c757d;
 }
 
 .excel-grid-row.imported .total-hours-display {
@@ -751,17 +756,17 @@ const removeProject = (index: number) => {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(7, auto);
   }
-  
+
   .excel-grid-cell {
     border-right: none;
     border-bottom: 1px solid #dee2e6;
     padding: 12px;
   }
-  
+
   .excel-grid-cell:last-child {
     border-bottom: none;
   }
-  
+
   .project-grid-row {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, auto);
