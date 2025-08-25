@@ -1,7 +1,7 @@
 <template>
   <div class="time-entry-row">
     <!-- Main Row -->
-    <div class="excel-grid-row" :class="{ 'selected': isExpanded, 'highlighted': isHighlighted, 'last-edited': isLastEdited }">
+    <div class="excel-grid-row" :class="{ 'selected': isExpanded, 'highlighted': isHighlighted, 'last-edited': isLastEdited, 'imported': localEntry.imported }">
       <!-- Date -->
       <div class="excel-grid-cell">
         <DatePicker
@@ -70,9 +70,20 @@
 
       <!-- Actions -->
       <div class="excel-grid-cell actions-cell">
-        <button @click="deleteRow" class="excel-btn btn-delete" title="Delete entry">
-          🗑️
-        </button>
+        <div class="actions-group">
+          <label class="imported-checkbox" title="Mark as imported elsewhere">
+            <input 
+              type="checkbox" 
+              v-model="localEntry.imported"
+              @change="handleImportedChange"
+              class="checkbox-input"
+            />
+            <span class="checkbox-label">📤</span>
+          </label>
+          <button @click="deleteRow" class="excel-btn btn-delete" title="Delete entry">
+            🗑️
+          </button>
+        </div>
       </div>
     </div>
 
@@ -174,7 +185,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useTimeTrackingStore } from '@/stores/timetracking'
 import { useValidation } from '@/composables/useValidation'
 import ValidationIndicator from '@/components/common/ValidationIndicator.vue'
@@ -201,7 +212,13 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const store = useTimeTrackingStore()
-const localEntry = ref<TimeEntry>({ ...props.entry })
+const localEntry = ref<TimeEntry>({ 
+  ...props.entry,
+  imported: props.entry.imported ?? false
+})
+
+// Flag to prevent external updates from overriding local changes
+const isUpdatingLocally = ref(false)
 
 // Validation
 const { validateTimeEntry, setErrors, errors, getFieldErrors } = useValidation()
@@ -219,8 +236,13 @@ const hoursRemaining = computed(() => {
 
 // Watch for external changes to the entry
 watch(() => props.entry, (newEntry) => {
-  localEntry.value = { ...newEntry }
-  validateEntry()
+  if (!isUpdatingLocally.value) {
+    localEntry.value = { 
+      ...newEntry,
+      imported: newEntry.imported ?? false
+    }
+    validateEntry()
+  }
 }, { deep: true })
 
 // Watch for local changes to validate
@@ -261,6 +283,22 @@ const handleProjectChange = () => {
       projects: localEntry.value.projects
     })
   }
+}
+
+const handleImportedChange = () => {
+  isUpdatingLocally.value = true
+  
+  emit('entry-edited', localEntry.value.id)
+  emit('update', localEntry.value.id, {
+    imported: localEntry.value.imported
+  })
+  
+  // Reset the flag after a short delay
+  nextTick(() => {
+    setTimeout(() => {
+      isUpdatingLocally.value = false
+    }, 100)
+  })
 }
 
 const toggleProjects = () => {
@@ -491,6 +529,94 @@ const removeProject = (index: number) => {
 
 .actions-cell {
   justify-content: center;
+}
+
+.actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.imported-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkbox-input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #dee2e6;
+  border-radius: 4px;
+  background: white;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.checkbox-input:checked + .checkbox-label {
+  background: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.checkbox-input:checked + .checkbox-label::before {
+  content: "✓";
+  position: absolute;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+.checkbox-input:focus + .checkbox-label {
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
+}
+
+.checkbox-label:hover {
+  border-color: #28a745;
+  background: #f8f9fa;
+}
+
+.checkbox-input:checked + .checkbox-label:hover {
+  background: #218838;
+  border-color: #1e7e34;
+}
+
+/* Grey-out styling for imported rows */
+.excel-grid-row.imported {
+  opacity: 0.6;
+  background-color: #f8f9fa !important;
+  color: #6c757d;
+}
+
+.excel-grid-row.imported:hover {
+  opacity: 0.75;
+  background-color: #e9ecef !important;
+}
+
+.excel-grid-row.imported .total-hours-display {
+  opacity: 0.7;
+  background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 50%, #f1f3f4 100%);
+  color: #5f6368;
+  border-color: #dadce0;
+}
+
+.excel-grid-row.imported .projects-toggle-btn {
+  opacity: 0.7;
+  background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 100%);
+  color: #5f6368;
+  border-color: #dadce0;
 }
 
 .btn-delete {

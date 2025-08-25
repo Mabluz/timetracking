@@ -158,7 +158,8 @@ app.put('/api/timeentries/:id', validateTimeEntryUpdate, async (req, res): Promi
       res.status(404).json({ error: 'Time entry not found' });
       return;
     }
-    
+
+    console.log("req.body: ", req.body);
     data.timeEntries[entryIndex] = {
       ...data.timeEntries[entryIndex],
       ...req.body,

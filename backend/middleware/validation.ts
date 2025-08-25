@@ -22,7 +22,8 @@ const timeEntrySchema = Joi.object({
   }),
   hoursAway: Joi.number().min(0).max(24).required(),
   totalHours: Joi.number().min(0).max(24).optional(),
-  projects: Joi.array().items(projectSchema).default([])
+  projects: Joi.array().items(projectSchema).default([]),
+  imported: Joi.boolean().default(false).optional()
 });
 
 const timeEntryUpdateSchema = Joi.object({
@@ -35,7 +36,8 @@ const timeEntryUpdateSchema = Joi.object({
   }),
   hoursAway: Joi.number().min(0).max(24).optional(),
   totalHours: Joi.number().min(0).max(24).optional(),
-  projects: Joi.array().items(projectSchema).optional()
+  projects: Joi.array().items(projectSchema).optional(),
+  imported: Joi.boolean().optional()
 });
 
 const projectCreateSchema = Joi.object({
@@ -131,7 +133,8 @@ const validateTimeEntry = (req: Request, res: Response, next: NextFunction): voi
 const validateTimeEntryUpdate = (req: Request, res: Response, next: NextFunction): void => {
   const { error, value } = timeEntryUpdateSchema.validate(req.body, { 
     abortEarly: false,
-    stripUnknown: true 
+    stripUnknown: false,
+    allowUnknown: false
   });
   
   if (error) {

@@ -15,6 +15,7 @@ export interface TimeEntry {
   projects: Project[]
   createdAt: string
   updatedAt: string
+  imported?: boolean
 }
 
 export interface ProjectSummary {
