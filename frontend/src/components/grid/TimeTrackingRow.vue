@@ -46,6 +46,17 @@
         <span class="total-hours-display">{{ (localEntry.totalHours || 0).toFixed(2) }}h</span>
       </div>
 
+      <!-- Overtime -->
+      <div class="excel-grid-cell overtime-cell">
+        <span 
+          v-if="overtimeHours > 0" 
+          class="overtime-display positive"
+        >
+          +{{ overtimeHours.toFixed(2) }}h
+        </span>
+        <span v-else class="overtime-display neutral">-</span>
+      </div>
+
       <!-- Projects Summary -->
       <div class="excel-grid-cell projects-cell">
         <div class="projects-summary">
@@ -249,6 +260,14 @@ const hoursRemaining = computed(() => {
   return (localEntry.value.totalHours || 0) - (projectTotalHours.value || 0)
 })
 
+// Get default work day hours from env
+const defaultWorkDayHours = Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5
+
+const overtimeHours = computed(() => {
+  const totalHours = localEntry.value.totalHours || 0
+  return Math.max(0, totalHours - defaultWorkDayHours)
+})
+
 // Watch for external changes to the entry
 watch(() => props.entry, (newEntry) => {
   if (!isUpdatingLocally.value) {
@@ -381,7 +400,7 @@ const removeProject = (index: number) => {
 
 .excel-grid-row {
   display: grid;
-  grid-template-columns: minmax(140px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(140px, 1fr) minmax(200px, 2fr) minmax(120px, 1fr);
+  grid-template-columns: minmax(140px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(140px, 1fr) minmax(120px, 1fr) minmax(200px, 2fr) minmax(120px, 1fr);
   transition: background-color 0.2s;
   min-height: 50px;
 }
@@ -474,6 +493,61 @@ const removeProject = (index: number) => {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
   border-color: #ced4da;
   color: #1a252f;
+}
+
+.overtime-cell {
+  justify-content: center;
+  align-items: center;
+}
+
+.overtime-display {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 5px;
+  border: 1px solid;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  min-width: 70px;
+  display: inline-block;
+}
+
+.overtime-display.positive {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 50%, #fdcb6e 100%);
+  color: #856404;
+  border-color: #ffc107;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+  animation: overtimePulse 2s ease-in-out infinite;
+}
+
+.overtime-display.positive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 193, 7, 0.4);
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #e17055 100%);
+  border-color: #fd7e14;
+  color: #495057;
+}
+
+.overtime-display.neutral {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+  color: #6c757d;
+  border-color: #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+@keyframes overtimePulse {
+  0% {
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.5);
+  }
+  100% {
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+  }
 }
 
 .calculated-value {
@@ -824,14 +898,14 @@ const removeProject = (index: number) => {
 /* Responsive design */
 @media (max-width: 1200px) {
   .excel-grid-row {
-    grid-template-columns: minmax(120px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr) minmax(150px, 1.5fr) minmax(100px, 1fr);
+    grid-template-columns: minmax(120px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr) minmax(100px, 1fr) minmax(150px, 1.5fr) minmax(100px, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .excel-grid-row {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(7, auto);
+    grid-template-rows: repeat(8, auto);
   }
 
   .excel-grid-cell {
@@ -846,7 +920,7 @@ const removeProject = (index: number) => {
 
   .project-grid-row {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: repeat(5, auto);
   }
 }
 </style>

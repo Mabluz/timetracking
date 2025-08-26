@@ -49,6 +49,7 @@
         <div class="excel-grid-cell">🕐 End Time</div>
         <div class="excel-grid-cell">⏰ Hours Away</div>
         <div class="excel-grid-cell">⏱️ Total Hours</div>
+        <div class="excel-grid-cell">⚡ Overtime</div>
         <div class="excel-grid-cell">📊 Projects</div>
         <div class="excel-grid-cell">⚙️ Actions</div>
       </div>
@@ -405,7 +406,7 @@ onMounted(async () => {
 
 .excel-grid-row {
   display: grid;
-  grid-template-columns: minmax(140px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(140px, 1fr) minmax(200px, 2fr) minmax(120px, 1fr);
+  grid-template-columns: minmax(140px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(140px, 1fr) minmax(120px, 1fr) minmax(200px, 2fr) minmax(120px, 1fr);
   border-bottom: 1px solid #dee2e6;
   min-height: 50px;
 }
@@ -500,7 +501,7 @@ onMounted(async () => {
 /* Responsive design */
 @media (max-width: 1200px) {
   .excel-grid-row {
-    grid-template-columns: minmax(120px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr) minmax(150px, 1.5fr) minmax(100px, 1fr);
+    grid-template-columns: minmax(120px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr) minmax(100px, 1fr) minmax(150px, 1.5fr) minmax(100px, 1fr);
   }
 }
 
@@ -516,7 +517,7 @@ onMounted(async () => {
   
   .excel-grid-row {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(7, auto);
+    grid-template-rows: repeat(8, auto);
   }
   
   .excel-grid-cell {
