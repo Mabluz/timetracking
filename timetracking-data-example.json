@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastModified": "2025-08-26T19:14:41.563Z",
+    "totalEntries": 1
+  },
+  "timeEntries": [
+    {
+      "date": "2025-08-26T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "15:30",
+      "hoursAway": 0.5,
+      "totalHours": 6,
+      "projects": [
+        {
+          "id": "proj-1756194841178",
+          "name": "Test - Unpaid",
+          "billable": false,
+          "hoursAllocated": 6,
+          "comment": "Testing"
+        }
+      ],
+      "imported": false,
+      "id": "a4cdbf04-add0-4fc0-9cfd-38934ca86564",
+      "createdAt": "2025-08-25T21:21:46.169Z",
+      "updatedAt": "2025-08-26T14:11:24.705Z"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Test - Unpaid",
+      "totalHours": 0,
+      "lastUsed": "2024-08-20",
+      "billable": false
+    },
+    {
+      "name": "Test - Paid",
+      "totalHours": 0,
+      "lastUsed": "2024-08-20",
+      "billable": true,
+      "lastSaved": "2025-08-26T19:02:15.446Z"
+    }
+  ]
+}
