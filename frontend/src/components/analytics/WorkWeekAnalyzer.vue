@@ -19,6 +19,7 @@ const store = useTimeTrackingStore()
 const fromDate = ref('')
 const toDate = ref('')
 const configuredWorkWeekHours = ref(props.workWeekHours)
+const isManualOverride = ref(false)
 
 // Save date range to localStorage
 const saveDateRange = () => {
@@ -113,27 +114,80 @@ const isValidDateRange = computed(() => {
 })
 
 // Update work week hours in localStorage
-const updateWorkWeekHours = (newHours: number) => {
+const updateWorkWeekHours = (newHours: number, isManual: boolean = false) => {
   configuredWorkWeekHours.value = newHours
   localStorage.setItem('workWeekHours', newHours.toString())
+  if (isManual) {
+    isManualOverride.value = true
+    localStorage.setItem('workWeekHoursManualOverride', 'true')
+  }
 }
 
 // Load work week hours from localStorage on mount
 const loadWorkWeekHours = () => {
   const saved = localStorage.getItem('workWeekHours')
+  const manualOverride = localStorage.getItem('workWeekHoursManualOverride')
   if (saved) {
     configuredWorkWeekHours.value = parseFloat(saved) || 37.5
+  }
+  if (manualOverride === 'true') {
+    isManualOverride.value = true
   }
 }
 
 // Initialize saved work week hours
 loadWorkWeekHours()
 
+// Reset to automatic calculation
+const resetToAutoCalculation = () => {
+  isManualOverride.value = false
+  localStorage.removeItem('workWeekHoursManualOverride')
+  
+  // Recalculate based on current date range
+  if (fromDate.value && toDate.value) {
+    const calculatedHours = calculateWorkWeekHours(fromDate.value, toDate.value)
+    configuredWorkWeekHours.value = calculatedHours
+    updateWorkWeekHours(calculatedHours)
+  }
+}
+
+// Calculate work week hours based on date range (Monday-Friday, 7.5h per day)
+const calculateWorkWeekHours = (from: string, to: string): number => {
+  if (!from || !to) return 37.5 // Default fallback
+  
+  const fromDate = new Date(from)
+  const toDate = new Date(to)
+  
+  if (fromDate > toDate) return 37.5 // Invalid range, use default
+  
+  let workDays = 0
+  const currentDate = new Date(fromDate)
+  
+  // Iterate through each day in the range
+  while (currentDate <= toDate) {
+    const dayOfWeek = currentDate.getDay()
+    // Monday = 1, Tuesday = 2, ..., Friday = 5
+    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+      workDays++
+    }
+    currentDate.setDate(currentDate.getDate() + 1)
+  }
+  
+  return workDays * 7.5 // 7.5 hours per work day
+}
+
 // Watch for date changes and save to localStorage and update store
 watch([fromDate, toDate], () => {
   if (fromDate.value && toDate.value) {
     saveDateRange()
     store.setHighlightDateRange(fromDate.value, toDate.value)
+    
+    // Auto-calculate work week hours based on selected date range (only if not manually overridden)
+    if (!isManualOverride.value) {
+      const calculatedHours = calculateWorkWeekHours(fromDate.value, toDate.value)
+      configuredWorkWeekHours.value = calculatedHours
+      updateWorkWeekHours(calculatedHours)
+    }
   }
 }, { immediate: true })
 </script>
@@ -175,16 +229,33 @@ watch([fromDate, toDate], () => {
     <div class="config-section">
       <div class="config-input-group">
         <label for="work-week-hours">Work Week Hours:</label>
-        <input 
-          id="work-week-hours"
-          type="number" 
-          step="0.5"
-          min="1"
-          max="80"
-          v-model.number="configuredWorkWeekHours"
-          @change="updateWorkWeekHours(configuredWorkWeekHours)"
-          class="work-week-input"
-        />
+        <div class="work-week-controls">
+          <input 
+            id="work-week-hours"
+            type="number" 
+            step="0.5"
+            min="1"
+            max="80"
+            v-model.number="configuredWorkWeekHours"
+            @change="updateWorkWeekHours(configuredWorkWeekHours, true)"
+            class="work-week-input"
+            :class="{ 'manual-override': isManualOverride }"
+          />
+          <button 
+            v-if="isManualOverride"
+            @click="resetToAutoCalculation"
+            class="reset-btn"
+            title="Reset to automatic calculation based on selected dates"
+          >
+            🔄 Auto
+          </button>
+        </div>
+        <small v-if="isManualOverride" class="override-note">
+          Manual override active. Work week hours won't auto-update when dates change.
+        </small>
+        <small v-else class="auto-calc-note">
+          Auto-calculated based on work days (Mon-Fri, 7.5h/day) in selected range.
+        </small>
       </div>
     </div>
 
@@ -335,6 +406,13 @@ watch([fromDate, toDate], () => {
   margin-bottom: 4px;
 }
 
+.work-week-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
 .work-week-input {
   width: 120px;
   padding: 8px;
@@ -347,6 +425,38 @@ watch([fromDate, toDate], () => {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.work-week-input.manual-override {
+  border-color: #ffc107;
+  background-color: #fff8dc;
+}
+
+.reset-btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reset-btn:hover {
+  background-color: #5a6268;
+}
+
+.override-note {
+  color: #856404;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.auto-calc-note {
+  color: #28a745;
+  font-style: italic;
+  font-size: 12px;
 }
 
 .analysis-results {
