@@ -456,9 +456,21 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     let totalHours = 0
     let billableHours = 0
     let nonBillableHours = 0
+    
+    // Overtime calculations
+    const defaultWorkDayHours = Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5
+    let totalOvertimeHours = 0
+    let overtimeDays = 0
 
     yearEntries.forEach(entry => {
       totalHours += entry.totalHours
+      
+      // Calculate overtime for each entry
+      const entryOvertimeHours = Math.max(0, (entry.totalHours || 0) - defaultWorkDayHours)
+      if (entryOvertimeHours > 0) {
+        totalOvertimeHours += entryOvertimeHours
+        overtimeDays++
+      }
       
       entry.projects.forEach(project => {
         const existing = projectStats.get(project.name) || {
@@ -591,6 +603,10 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
 
     // Fun coffee calculation (1 cup per 4 hours worked)
     const coffeeEquivalent = Math.round(totalHours / 4)
+    
+    // Calculate overtime statistics
+    const averageOvertimeHours = overtimeDays > 0 ? totalOvertimeHours / overtimeDays : 0
+    const overtimePercentage = totalHours > 0 ? (totalOvertimeHours / totalHours) * 100 : 0
 
     return {
       year,
@@ -615,7 +631,11 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
       workingDays,
       longestStreak,
       milestones,
-      coffeeEquivalent
+      coffeeEquivalent,
+      totalOvertimeHours: Math.round(totalOvertimeHours * 100) / 100,
+      overtimeDays,
+      averageOvertimeHours: Math.round(averageOvertimeHours * 100) / 100,
+      overtimePercentage: Math.round(overtimePercentage * 100) / 100
     }
   }
 

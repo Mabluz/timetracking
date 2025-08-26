@@ -52,6 +52,10 @@ const calendarDays = computed(() => {
       })
     })
     
+    // Calculate overtime for this day
+    const defaultWorkDayHours = Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5
+    const overtimeHours = Math.max(0, totalHours - defaultWorkDayHours)
+    
     const projects = Array.from(projectsMap.entries()).map(([name, hours]) => ({
       name,
       hours: Math.round(hours * 100) / 100
@@ -65,6 +69,7 @@ const calendarDays = computed(() => {
       isToday: dayString === new Date().toISOString().split('T')[0],
       entries: dayEntries,
       totalHours: Math.round(totalHours * 100) / 100,
+      overtimeHours: Math.round(overtimeHours * 100) / 100,
       projects,
       hasData: dayEntries.length > 0
     })
@@ -119,7 +124,16 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
           <div class="day-number">{{ day.dayNumber }}</div>
           
           <div v-if="day.hasData" class="day-content">
-            <div class="total-hours">{{ day.totalHours }}h</div>
+            <div class="hours-row">
+              <div class="total-hours">{{ day.totalHours }}h</div>
+              <div 
+                v-if="day.overtimeHours > 0" 
+                class="overtime-hours"
+                :title="`Overtime: +${day.overtimeHours}h`"
+              >
+                +{{ day.overtimeHours }}h
+              </div>
+            </div>
             
             <div class="day-projects">
               <div 
@@ -259,6 +273,13 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   gap: 6px;
 }
 
+.hours-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .total-hours {
   font-weight: 700;
   color: #28a745;
@@ -267,6 +288,30 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   padding: 2px 6px;
   border-radius: 4px;
   display: inline-block;
+}
+
+.overtime-hours {
+  font-weight: 600;
+  color: #fd7e14;
+  font-size: 12px;
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid #ffc107;
+  display: inline-block;
+  animation: overtimePulse 2s ease-in-out infinite;
+}
+
+@keyframes overtimePulse {
+  0% {
+    box-shadow: 0 1px 2px rgba(255, 193, 7, 0.3);
+  }
+  50% {
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.5);
+  }
+  100% {
+    box-shadow: 0 1px 2px rgba(255, 193, 7, 0.3);
+  }
 }
 
 .day-projects {

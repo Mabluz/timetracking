@@ -34,6 +34,10 @@
             <div class="stat-value">{{ statistics.workingDays }}</div>
             <div class="stat-label">Working Days</div>
           </div>
+          <div class="stat-card overtime" :class="{ 'has-overtime': (statistics.totalOvertimeHours || 0) > 0 }">
+            <div class="stat-value">{{ (statistics.totalOvertimeHours || 0) > 0 ? '+' : '' }}{{ (statistics.totalOvertimeHours || 0) }}h</div>
+            <div class="stat-label">Total Overtime Hours</div>
+          </div>
         </div>
       </div>
 
@@ -124,6 +128,18 @@
               <div class="insight-title">Longest Work Streak</div>
               <div class="insight-value">{{ statistics.longestStreak }} days</div>
               <div class="insight-detail">Most consecutive working days</div>
+            </div>
+          </div>
+
+          <div class="insight-card overtime-insight" :class="{ 'high-overtime': (statistics.overtimePercentage || 0) > 15 }">
+            <div class="insight-icon">⚡</div>
+            <div class="insight-content">
+              <div class="insight-title">Overtime Analysis</div>
+              <div class="insight-value">{{ statistics.overtimeDays || 0 }} days</div>
+              <div class="insight-detail">
+                {{ (statistics.averageOvertimeHours || 0).toFixed(1) }}h avg per overtime day
+                ({{ (statistics.overtimePercentage || 0).toFixed(1) }}% of total hours)
+              </div>
             </div>
           </div>
         </div>
@@ -342,6 +358,29 @@ onMounted(() => {
   border-left-color: #d39e00;
 }
 
+.stat-card.overtime {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  color: #6c757d;
+  border-left-color: #dee2e6;
+  transition: all 0.3s ease;
+}
+
+.stat-card.overtime.has-overtime {
+  background: linear-gradient(135deg, #fd7e14, #e55a00);
+  color: white;
+  border-left-color: #dc3545;
+  animation: overtimePulse 3s ease-in-out infinite;
+}
+
+@keyframes overtimePulse {
+  0%, 100% {
+    box-shadow: 0 4px 8px rgba(253, 126, 20, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 12px rgba(253, 126, 20, 0.5);
+  }
+}
+
 .stat-value {
   font-size: 28px;
   font-weight: 700;
@@ -483,6 +522,24 @@ onMounted(() => {
 .insight-detail {
   font-size: 12px;
   color: #6c757d;
+}
+
+.insight-card.overtime-insight {
+  border-left-color: #fd7e14;
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+}
+
+.insight-card.overtime-insight.high-overtime {
+  border-left-color: #dc3545;
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+}
+
+.insight-card.overtime-insight .insight-icon {
+  color: #fd7e14;
+}
+
+.insight-card.overtime-insight.high-overtime .insight-icon {
+  color: #dc3545;
 }
 
 .fun-stats {

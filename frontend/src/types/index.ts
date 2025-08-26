@@ -75,4 +75,8 @@ export interface YearlyStatistics {
   longestStreak: number
   milestones: string[]
   coffeeEquivalent: number
+  totalOvertimeHours: number
+  overtimeDays: number
+  averageOvertimeHours: number
+  overtimePercentage: number
 }

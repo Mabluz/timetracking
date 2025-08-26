@@ -12,7 +12,7 @@ const currentMonth = new Date().toISOString().slice(0, 7) // YYYY-MM format
 selectedMonth.value = currentMonth
 
 const monthlyData = computed(() => {
-  if (!selectedMonth.value) return { entries: [], summary: [], totalHours: 0, totalDays: 0 }
+  if (!selectedMonth.value) return { entries: [], summary: [], totalHours: 0, totalDays: 0, totalOvertimeHours: 0 }
   
   
   const monthEntries = store.timeEntries.filter(entry => 
@@ -22,7 +22,15 @@ const monthlyData = computed(() => {
   // Group by project
   const projectSummary = new Map<string, { hours: number, entries: number }>()
   
+  // Calculate overtime
+  const defaultWorkDayHours = Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5
+  let totalOvertimeHours = 0
+  
   monthEntries.forEach(entry => {
+    // Calculate overtime for each entry
+    const entryOvertimeHours = Math.max(0, (entry.totalHours || 0) - defaultWorkDayHours)
+    totalOvertimeHours += entryOvertimeHours
+    
     entry.projects.forEach(project => {
       const existing = projectSummary.get(project.name) || { hours: 0, entries: 0 }
       existing.hours += project.hoursAllocated
@@ -41,7 +49,8 @@ const monthlyData = computed(() => {
     entries: monthEntries.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
     summary,
     totalHours: summary.reduce((total, project) => total + project.hours, 0),
-    totalDays: monthEntries.length
+    totalDays: monthEntries.length,
+    totalOvertimeHours: Math.round(totalOvertimeHours * 100) / 100
   }
 })
 
@@ -101,6 +110,12 @@ onMounted(() => {
           <div class="stat-item">
             <span class="stat-label">Working Days:</span>
             <span class="stat-value">{{ monthlyData.totalDays }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Overtime Hours:</span>
+            <span class="stat-value overtime" :class="{ 'has-overtime': monthlyData.totalOvertimeHours > 0 }">
+              {{ monthlyData.totalOvertimeHours > 0 ? '+' : '' }}{{ monthlyData.totalOvertimeHours }}h
+            </span>
           </div>
         </div>
         
@@ -223,6 +238,20 @@ onMounted(() => {
   font-size: 24px;
   font-weight: 600;
   color: #007bff;
+}
+
+.stat-value.overtime {
+  color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+.stat-value.overtime.has-overtime {
+  color: #fd7e14;
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #ffc107;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.2);
 }
 
 .import-button {
