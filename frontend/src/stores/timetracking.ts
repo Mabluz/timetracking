@@ -494,7 +494,14 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     })
 
     const topProjects = Array.from(projectStats.values())
-      .sort((a, b) => b.revenue - a.revenue)
+      .sort((a, b) => {
+        // Primary sort: by revenue (descending)
+        const revenueDiff = b.revenue - a.revenue
+        if (revenueDiff !== 0) return revenueDiff
+        
+        // Secondary sort: by total hours (descending) when revenue is the same
+        return b.totalHours - a.totalHours
+      })
 
     // Monthly breakdown
     const monthlyStats = new Map<string, MonthlyStats>()
