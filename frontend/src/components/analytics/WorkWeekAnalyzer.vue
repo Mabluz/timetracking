@@ -9,7 +9,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  workWeekHours: 37.5
+  workWeekHours: Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) * 5 || 37.5
 })
 
 // Store
@@ -20,6 +20,9 @@ const fromDate = ref('')
 const toDate = ref('')
 const configuredWorkWeekHours = ref(props.workWeekHours)
 const isManualOverride = ref(false)
+
+// Computed properties
+const defaultWorkDayHours = computed(() => Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5)
 
 // Save date range to localStorage
 const saveDateRange = () => {
@@ -128,7 +131,7 @@ const loadWorkWeekHours = () => {
   const saved = localStorage.getItem('workWeekHours')
   const manualOverride = localStorage.getItem('workWeekHoursManualOverride')
   if (saved) {
-    configuredWorkWeekHours.value = parseFloat(saved) || 37.5
+    configuredWorkWeekHours.value = parseFloat(saved) || (Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) * 5 || 37.5)
   }
   if (manualOverride === 'true') {
     isManualOverride.value = true
@@ -151,14 +154,15 @@ const resetToAutoCalculation = () => {
   }
 }
 
-// Calculate work week hours based on date range (Monday-Friday, 7.5h per day)
+// Calculate work week hours based on date range (Monday-Friday, configured hours per day)
 const calculateWorkWeekHours = (from: string, to: string): number => {
-  if (!from || !to) return 37.5 // Default fallback
+  const defaultWorkDayHours = Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5
+  if (!from || !to) return defaultWorkDayHours * 5 // Default fallback
   
   const fromDate = new Date(from)
   const toDate = new Date(to)
   
-  if (fromDate > toDate) return 37.5 // Invalid range, use default
+  if (fromDate > toDate) return defaultWorkDayHours * 5 // Invalid range, use default
   
   let workDays = 0
   const currentDate = new Date(fromDate)
@@ -173,7 +177,7 @@ const calculateWorkWeekHours = (from: string, to: string): number => {
     currentDate.setDate(currentDate.getDate() + 1)
   }
   
-  return workDays * 7.5 // 7.5 hours per work day
+  return workDays * defaultWorkDayHours
 }
 
 // Watch for date changes and save to localStorage and update store
@@ -254,7 +258,7 @@ watch([fromDate, toDate], () => {
           Manual override active. Work week hours won't auto-update when dates change.
         </small>
         <small v-else class="auto-calc-note">
-          Auto-calculated based on work days (Mon-Fri, 7.5h/day) in selected range.
+          Auto-calculated based on work days (Mon-Fri, {{ defaultWorkDayHours }}h/day) in selected range.
         </small>
       </div>
     </div>

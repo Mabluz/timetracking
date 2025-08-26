@@ -114,7 +114,7 @@
             <div class="insight-content">
               <div class="insight-title">Average Daily Hours</div>
               <div class="insight-value">{{ statistics.averageDailyHours.toFixed(1) }}h</div>
-              <div class="insight-detail">{{ statistics.averageDailyHours > 7.5 ? 'Above' : statistics.averageDailyHours < 7.5 ? 'Below' : 'Equal to' }} typical 7.5h days</div>
+              <div class="insight-detail">{{ statistics.averageDailyHours > defaultWorkDayHours ? 'Above' : statistics.averageDailyHours < defaultWorkDayHours ? 'Below' : 'Equal to' }} typical {{ defaultWorkDayHours }}h days</div>
             </div>
           </div>
 
@@ -187,6 +187,8 @@ import type { YearlyStatistics } from '@/types'
 
 const store = useTimeTrackingStore()
 const selectedYear = ref<number>(new Date().getFullYear())
+
+const defaultWorkDayHours = computed(() => Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5)
 
 const availableYears = computed(() => {
   const years = new Set<number>()

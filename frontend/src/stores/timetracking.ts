@@ -418,7 +418,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
         startTime: '09:00',
         endTime: '17:00',
         hoursAway: 0.5,
-        totalHours: 7.5,
+        totalHours: Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5,
         projects: []
       }
       createTimeEntry(defaultEntry)
