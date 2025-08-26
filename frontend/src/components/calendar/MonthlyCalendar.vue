@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import type { TimeEntry } from '@/types'
 
 interface Props {
@@ -56,10 +56,21 @@ const calendarDays = computed(() => {
     const defaultWorkDayHours = Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5
     const overtimeHours = Math.max(0, totalHours - defaultWorkDayHours)
     
-    const projects = Array.from(projectsMap.entries()).map(([name, hours]) => ({
-      name,
-      hours: Math.round(hours * 100) / 100
-    })).sort((a, b) => b.hours - a.hours)
+    // Create projects summary with comments
+    const projects = Array.from(projectsMap.entries()).map(([name, hours]) => {
+      // Find comments for this project from any entry on this day
+      const projectComments = dayEntries
+        .flatMap(entry => entry.projects)
+        .filter(project => project.name === name && project.comment)
+        .map(project => project.comment?.trim())
+        .filter(comment => comment && comment.length > 0)
+
+      return {
+        name,
+        hours: Math.round(hours * 100) / 100,
+        comments: [...new Set(projectComments)] // Remove duplicates
+      }
+    }).sort((a, b) => b.hours - a.hours)
     
     days.push({
       date: new Date(current),
@@ -88,12 +99,25 @@ const monthName = computed(() => {
 })
 
 const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+const showComments = ref(false)
 </script>
 
 <template>
   <div class="monthly-calendar">
     <div class="calendar-header">
       <h4>{{ monthName }} Calendar</h4>
+      <div class="calendar-options">
+        <label class="comments-toggle">
+          <input 
+            type="checkbox" 
+            v-model="showComments"
+            class="checkbox-input"
+          />
+          <span class="checkbox-label">💬</span>
+          <span class="checkbox-text">Show Comments</span>
+        </label>
+      </div>
     </div>
     
     <div class="calendar-grid">
@@ -140,10 +164,25 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
                 v-for="project in day.projects.slice(0, 3)" 
                 :key="project.name"
                 class="project-summary"
-                :title="`${project.name}: ${project.hours}h`"
+                :class="{ 'with-comments': showComments && project.comments.length > 0 }"
+                :title="`${project.name}: ${project.hours}h${project.comments.length > 0 ? ' - ' + project.comments.join(', ') : ''}`"
               >
-                <span class="project-name">{{ project.name }}</span>
-                <span class="project-hours">{{ project.hours }}h</span>
+                <div class="project-main">
+                  <span class="project-name">{{ project.name }}</span>
+                  <span class="project-hours">{{ project.hours }}h</span>
+                </div>
+                <div 
+                  v-if="showComments && project.comments.length > 0" 
+                  class="project-comments"
+                >
+                  <div 
+                    v-for="comment in project.comments" 
+                    :key="comment"
+                    class="project-comment"
+                  >
+                    {{ comment }}
+                  </div>
+                </div>
               </div>
               
               <div 
@@ -180,10 +219,81 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 }
 
 
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .calendar-header h4 {
-  margin: 0 0 20px 0;
+  margin: 0;
   color: #333;
   font-size: 18px;
+}
+
+.calendar-options {
+  display: flex;
+  align-items: center;
+}
+
+.comments-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  user-select: none;
+}
+
+.comments-toggle:hover {
+  background-color: #f8f9fa;
+}
+
+.comments-toggle .checkbox-input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.comments-toggle .checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #dee2e6;
+  border-radius: 3px;
+  background: white;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.comments-toggle .checkbox-input:checked + .checkbox-label {
+  background: #17a2b8;
+  border-color: #17a2b8;
+  color: white;
+}
+
+.comments-toggle .checkbox-input:checked + .checkbox-label::before {
+  content: "✓";
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.comments-toggle .checkbox-input:focus + .checkbox-label {
+  box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.25);
+}
+
+.comments-toggle .checkbox-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
 }
 
 .calendar-grid {
@@ -322,14 +432,23 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 }
 
 .project-summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background: rgba(0, 123, 255, 0.1);
   padding: 3px 6px;
   border-radius: 3px;
   font-size: 11px;
   line-height: 1.2;
+}
+
+.project-summary.with-comments {
+  background: rgba(23, 162, 184, 0.15);
+  border-left: 2px solid #17a2b8;
+  padding-left: 4px;
+}
+
+.project-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .project-name {
@@ -346,6 +465,30 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   font-weight: 600;
   color: #007bff;
   flex-shrink: 0;
+}
+
+.project-comments {
+  margin-top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.project-comment {
+  font-size: 10px;
+  color: #6c757d;
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 1px 3px;
+  border-radius: 2px;
+  line-height: 1.1;
+  word-break: break-word;
+  max-height: 2.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .more-projects {
