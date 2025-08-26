@@ -105,6 +105,7 @@
         <!-- Project Header -->
         <div class="excel-grid-row excel-grid-header project-grid-row">
           <div class="excel-grid-cell">📝 Project Name</div>
+          <div class="excel-grid-cell">💰 Billable</div>
           <div class="excel-grid-cell">⏱️ Hours Allocated</div>
           <div class="excel-grid-cell">💬 Comments</div>
           <div class="excel-grid-cell">⚙️ Actions</div>
@@ -125,6 +126,20 @@
               @change="handleProjectChange"
               :list="`projects-list-${entry.id}`"
             />
+          </div>
+          <div class="excel-grid-cell">
+            <label class="project-billable-checkbox" :class="{ 'disabled': isDefaultProject(project.name) }">
+              <input
+                v-model="project.billable"
+                type="checkbox"
+                class="checkbox-input"
+                :disabled="isDefaultProject(project.name)"
+                @change="handleProjectChange"
+                :title="isDefaultProject(project.name) ? 'Billable status controlled by default project settings' : 'Toggle billable status for this custom project'"
+              />
+              <span class="checkbox-indicator"></span>
+              <span v-if="isDefaultProject(project.name)" class="default-project-indicator">📋</span>
+            </label>
           </div>
           <div class="excel-grid-cell">
             <input
@@ -274,7 +289,34 @@ const handleTimeChange = () => {
   )
 }
 
+// Check if a project name matches an existing default project
+const isDefaultProject = (projectName: string): boolean => {
+  if (!projectName?.trim()) return false
+  return availableProjects.value.some(p => p.name === projectName.trim())
+}
+
+// Get the billable status from default project
+const getDefaultProjectBillable = (projectName: string): boolean => {
+  const defaultProject = availableProjects.value.find(p => p.name === projectName.trim())
+  return defaultProject?.billable !== false // Default to true if not found or undefined
+}
+
 const handleProjectChange = () => {
+  // Auto-populate billable status and handle checkbox state based on project type
+  if (localEntry.value.projects) {
+    localEntry.value.projects.forEach(project => {
+      if (project.name?.trim()) {
+        if (isDefaultProject(project.name)) {
+          // For default projects, use the default project's billable status
+          project.billable = getDefaultProjectBillable(project.name)
+        } else if (project.billable === undefined) {
+          // For new custom projects, default to billable
+          project.billable = true
+        }
+      }
+    })
+  }
+  
   // Only save if all projects have valid names (prevent backend validation errors)
   const hasInvalidProjects = localEntry.value.projects?.some(project => !project.name?.trim())
   if (!hasInvalidProjects) {
@@ -314,7 +356,8 @@ const addProject = () => {
     id: `proj-${Date.now()}`,
     name: '',
     hoursAllocated: 0,
-    comment: ''
+    comment: '',
+    billable: true
   }
   if (!localEntry.value.projects) {
     localEntry.value.projects = []
@@ -591,6 +634,40 @@ const removeProject = (index: number) => {
 .checkbox-input:checked + .checkbox-label:hover {
   background: #218838;
   border-color: #1e7e34;
+}
+
+.project-billable-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.project-billable-checkbox .checkbox-input {
+  position: relative;
+  opacity: 1;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.project-billable-checkbox .checkbox-indicator {
+  display: none;
+}
+
+.project-billable-checkbox.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.project-billable-checkbox.disabled .checkbox-input {
+  cursor: not-allowed;
+}
+
+.default-project-indicator {
+  margin-left: 4px;
+  font-size: 12px;
+  opacity: 0.7;
 }
 
 /* Grey-out styling for imported rows */

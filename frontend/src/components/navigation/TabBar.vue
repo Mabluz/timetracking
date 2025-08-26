@@ -29,6 +29,13 @@ const currentPath = computed(() => route.path)
     >
       Default projects
     </RouterLink>
+    <RouterLink 
+      to="/yearly-statistics"
+      class="tab-item" 
+      :class="{ active: currentPath === '/yearly-statistics' }"
+    >
+      Yearly statistics
+    </RouterLink>
   </nav>
 </template>
 

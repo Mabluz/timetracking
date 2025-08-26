@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { TimeEntry, ProjectSummary } from '@/types'
+import type { TimeEntry, ProjectSummary, YearlyStatistics, YearlyProjectStats, MonthlyStats } from '@/types'
 import { timeEntriesApi, projectsApi } from '@/services/api'
 
 // Simple UUID v4 generator for client-side use
@@ -438,6 +438,180 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     lastEditedEntry.value = localStorageHelper.getLastEditedEntry()
   }
 
+  const calculateYearlyStatistics = (year: number): YearlyStatistics | null => {
+    const yearEntries = timeEntries.value.filter(entry => {
+      const entryYear = new Date(entry.date).getFullYear()
+      return entryYear === year
+    })
+
+    if (yearEntries.length === 0) {
+      return null
+    }
+
+    // Default hourly rate - configurable via environment variable
+    const DEFAULT_HOURLY_RATE = Number(import.meta.env.VITE_DEFAULT_HOURLY_RATE) || 750
+
+    // Calculate total hours and project stats
+    const projectStats = new Map<string, YearlyProjectStats>()
+    let totalHours = 0
+    let billableHours = 0
+    let nonBillableHours = 0
+
+    yearEntries.forEach(entry => {
+      totalHours += entry.totalHours
+      
+      entry.projects.forEach(project => {
+        const existing = projectStats.get(project.name) || {
+          name: project.name,
+          totalHours: 0,
+          revenue: 0,
+          percentage: 0,
+          billableHours: 0,
+          nonBillableHours: 0
+        }
+        
+        existing.totalHours += project.hoursAllocated
+        
+        // Use project's billable property, defaulting to true if not specified
+        const isBillable = project.billable !== false
+        
+        if (isBillable) {
+          existing.billableHours += project.hoursAllocated
+          existing.revenue += project.hoursAllocated * DEFAULT_HOURLY_RATE
+          billableHours += project.hoursAllocated
+        } else {
+          existing.nonBillableHours += project.hoursAllocated
+          nonBillableHours += project.hoursAllocated
+        }
+        
+        projectStats.set(project.name, existing)
+      })
+    })
+
+    // Calculate percentages for projects
+    projectStats.forEach(project => {
+      project.percentage = (project.totalHours / totalHours) * 100
+    })
+
+    const topProjects = Array.from(projectStats.values())
+      .sort((a, b) => b.revenue - a.revenue)
+
+    // Monthly breakdown
+    const monthlyStats = new Map<string, MonthlyStats>()
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    
+    // Initialize all months
+    monthNames.forEach((month, index) => {
+      const monthKey = `${year}-${String(index + 1).padStart(2, '0')}`
+      monthlyStats.set(monthKey, {
+        month,
+        totalHours: 0,
+        projectHours: {}
+      })
+    })
+
+    yearEntries.forEach(entry => {
+      const monthKey = entry.date.substring(0, 7) // YYYY-MM
+      const monthIndex = parseInt(entry.date.substring(5, 7)) - 1
+      const monthName = monthNames[monthIndex]
+      
+      const monthData = monthlyStats.get(monthKey) || {
+        month: monthName,
+        totalHours: 0,
+        projectHours: {}
+      }
+      
+      monthData.totalHours += entry.totalHours
+      
+      entry.projects.forEach(project => {
+        monthData.projectHours[project.name] = (monthData.projectHours[project.name] || 0) + project.hoursAllocated
+      })
+      
+      monthlyStats.set(monthKey, monthData)
+    })
+
+    const monthlyBreakdown = Array.from(monthlyStats.values())
+    
+    // Find busiest and least busy months
+    const monthsWithHours = monthlyBreakdown.filter(month => month.totalHours > 0)
+    const busiestMonth = monthsWithHours.reduce((max, month) => 
+      month.totalHours > max.totalHours ? month : max, 
+      monthsWithHours[0] || { month: 'N/A', totalHours: 0 }
+    )
+    const leastBusyMonth = monthsWithHours.reduce((min, month) => 
+      month.totalHours < min.totalHours ? month : min, 
+      monthsWithHours[0] || { month: 'N/A', totalHours: 0 }
+    )
+
+    // Calculate working days and streaks
+    const workingDays = yearEntries.length
+    const sortedEntries = [...yearEntries].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    
+    let longestStreak = 0
+    let currentStreak = 0
+    let lastDate: Date | null = null
+
+    sortedEntries.forEach(entry => {
+      const currentDate = new Date(entry.date)
+      
+      if (lastDate) {
+        const daysDiff = Math.round((currentDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24))
+        if (daysDiff === 1) {
+          currentStreak++
+        } else {
+          longestStreak = Math.max(longestStreak, currentStreak)
+          currentStreak = 1
+        }
+      } else {
+        currentStreak = 1
+      }
+      
+      lastDate = currentDate
+    })
+    longestStreak = Math.max(longestStreak, currentStreak)
+
+    // Generate milestones
+    const milestones: string[] = []
+    if (totalHours >= 1000) milestones.push('🎯 1000+ Hours Logged')
+    if (totalHours >= 1500) milestones.push('🚀 1500+ Hours Achieved')
+    if (totalHours >= 2000) milestones.push('⭐ 2000+ Hours Mastery')
+    if (billableHours / totalHours > 0.8) milestones.push('💰 80%+ Billable Hours')
+    if (longestStreak >= 30) milestones.push('🔥 30+ Day Work Streak')
+    if (workingDays >= 200) milestones.push('📅 200+ Working Days')
+
+    // Calculate average daily hours
+    const averageDailyHours = workingDays > 0 ? totalHours / workingDays : 0
+
+    // Fun coffee calculation (1 cup per 4 hours worked)
+    const coffeeEquivalent = Math.round(totalHours / 4)
+
+    return {
+      year,
+      totalHours: Math.round(totalHours * 100) / 100,
+      billableHours: Math.round(billableHours * 100) / 100,
+      nonBillableHours: Math.round(nonBillableHours * 100) / 100,
+      totalRevenue: Math.round(billableHours * DEFAULT_HOURLY_RATE),
+      averageHourlyRate: DEFAULT_HOURLY_RATE,
+      topProjects,
+      monthlyBreakdown,
+      busiestMonth: {
+        month: busiestMonth.month,
+        hours: Math.round(busiestMonth.totalHours * 100) / 100,
+        percentage: totalHours > 0 ? Math.round((busiestMonth.totalHours / totalHours) * 100 * 100) / 100 : 0
+      },
+      leastBusyMonth: {
+        month: leastBusyMonth.month,
+        hours: Math.round(leastBusyMonth.totalHours * 100) / 100,
+        percentage: totalHours > 0 ? Math.round((leastBusyMonth.totalHours / totalHours) * 100 * 100) / 100 : 0
+      },
+      averageDailyHours: Math.round(averageDailyHours * 100) / 100,
+      workingDays,
+      longestStreak,
+      milestones,
+      coffeeEquivalent
+    }
+  }
+
   // Network status detection
   const checkOnlineStatus = () => {
     isOnline.value = navigator.onLine
@@ -538,6 +712,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     setLastSaved,
     setHighlightDateRange,
     setLastEditedEntry,
-    loadLastEditedEntry
+    loadLastEditedEntry,
+    calculateYearlyStatistics
   }
 })

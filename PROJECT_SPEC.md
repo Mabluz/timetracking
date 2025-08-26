@@ -19,7 +19,3 @@ Here are some suggestions:
 - Coffee Cup Equivalent ☕ – estimate caffeine consumed based on hours (purely for fun).
 - 
 - Project Heat Map – months vs. projects showing workload intensity.
-
-
-## TODO
-- 

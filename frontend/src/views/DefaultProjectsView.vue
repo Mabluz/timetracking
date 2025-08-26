@@ -9,6 +9,7 @@ const editingProject = ref<ProjectSummary | null>(null)
 const editingOriginalName = ref<string | null>(null)
 const showAddForm = ref(false)
 const newProjectName = ref('')
+const newProjectBillable = ref(true)
 
 const startEdit = (project: ProjectSummary) => {
   editingProject.value = { ...project }
@@ -47,8 +48,12 @@ const addNewProject = async () => {
   if (!newProjectName.value.trim()) return
   
   try {
-    await store.createProject({ name: newProjectName.value.trim() })
+    await store.createProject({ 
+      name: newProjectName.value.trim(),
+      billable: newProjectBillable.value
+    })
     newProjectName.value = ''
+    newProjectBillable.value = true
     showAddForm.value = false
   } catch (error) {
     console.error('Failed to create project:', error)
@@ -57,6 +62,7 @@ const addNewProject = async () => {
 
 const cancelAdd = () => {
   newProjectName.value = ''
+  newProjectBillable.value = true
   showAddForm.value = false
 }
 
@@ -89,6 +95,14 @@ onMounted(() => {
           @keyup.enter="addNewProject"
           @keyup.escape="cancelAdd"
         />
+        <label class="checkbox-label">
+          <input
+            v-model="newProjectBillable"
+            type="checkbox"
+            class="checkbox-input"
+          />
+          Billable
+        </label>
         <div class="form-actions">
           <button class="btn-success" @click="addNewProject">Add</button>
           <button class="btn-secondary" @click="cancelAdd">Cancel</button>
@@ -112,6 +126,14 @@ onMounted(() => {
               @keyup.enter="saveEdit"
               @keyup.escape="cancelEdit"
             />
+            <label class="checkbox-label">
+              <input
+                v-model="editingProject!.billable"
+                type="checkbox"
+                class="checkbox-input"
+              />
+              Billable
+            </label>
             <div class="form-actions">
               <button class="btn-success" @click="saveEdit">Save</button>
               <button class="btn-secondary" @click="cancelEdit">Cancel</button>
@@ -124,6 +146,9 @@ onMounted(() => {
             <span class="project-name">{{ project.name }}</span>
             <div class="project-stats">
               <span class="total-hours">{{ project.totalHours }}h total</span>
+              <span class="billable-status" :class="{ 'billable': project.billable !== false, 'non-billable': project.billable === false }">
+                {{ project.billable !== false ? 'Billable' : 'Non-billable' }}
+              </span>
               <span class="last-used" v-if="project.lastUsed">
                 Last used: {{ new Date(project.lastUsed).toLocaleDateString() }}
               </span>
@@ -239,6 +264,41 @@ onMounted(() => {
 .form-actions {
   display: flex;
   gap: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #495057;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.checkbox-input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.billable-status {
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.billable-status.billable {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.billable-status.non-billable {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 /* Button styles */

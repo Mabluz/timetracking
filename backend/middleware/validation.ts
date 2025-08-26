@@ -9,7 +9,8 @@ const projectSchema = Joi.object({
   id: Joi.string().optional(),
   name: Joi.string().required().min(1).max(100).trim(),
   hoursAllocated: Joi.number().min(0).max(24).required(),
-  comment: Joi.string().allow('').max(500)
+  comment: Joi.string().allow('').max(500),
+  billable: Joi.boolean().default(true).optional()
 });
 
 const timeEntrySchema = Joi.object({
@@ -41,7 +42,8 @@ const timeEntryUpdateSchema = Joi.object({
 });
 
 const projectCreateSchema = Joi.object({
-  name: Joi.string().required().min(1).max(100).trim()
+  name: Joi.string().required().min(1).max(100).trim(),
+  billable: Joi.boolean().default(true).optional()
 });
 
 // Custom validation functions
