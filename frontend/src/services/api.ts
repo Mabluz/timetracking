@@ -51,6 +51,16 @@ export const projectsApi = {
   async create(project: Omit<ProjectSummary, 'totalHours' | 'lastUsed'>): Promise<ProjectSummary & { lastSaved: string }> {
     const response = await api.post('/api/projects', project)
     return response.data
+  },
+
+  async update(name: string, project: Partial<ProjectSummary>): Promise<ProjectSummary & { lastSaved: string }> {
+    const response = await api.put(`/api/projects/${encodeURIComponent(name)}`, project)
+    return response.data
+  },
+
+  async delete(name: string): Promise<{ message: string; lastSaved: string }> {
+    const response = await api.delete(`/api/projects/${encodeURIComponent(name)}`)
+    return response.data
   }
 }
 

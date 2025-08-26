@@ -220,6 +220,49 @@ app.post('/api/projects', validateProject, async (req, res) => {
   }
 });
 
+app.put('/api/projects/:name', async (req, res): Promise<void> => {
+  try {
+    const data = await readData();
+    const projectName = decodeURIComponent(req.params.name);
+    const projectIndex = data.projects.findIndex((project: any) => project.name === projectName);
+    
+    if (projectIndex === -1) {
+      res.status(404).json({ error: 'Project not found' });
+      return;
+    }
+    
+    data.projects[projectIndex] = {
+      ...data.projects[projectIndex],
+      ...req.body
+    };
+    
+    const timestamp = await writeData(data);
+    res.json({ ...data.projects[projectIndex], lastSaved: timestamp });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update project' });
+  }
+});
+
+app.delete('/api/projects/:name', async (req, res): Promise<void> => {
+  try {
+    const data = await readData();
+    const projectName = decodeURIComponent(req.params.name);
+    const projectIndex = data.projects.findIndex((project: any) => project.name === projectName);
+    
+    if (projectIndex === -1) {
+      res.status(404).json({ error: 'Project not found' });
+      return;
+    }
+    
+    data.projects.splice(projectIndex, 1);
+    
+    const timestamp = await writeData(data);
+    res.json({ message: 'Project deleted', lastSaved: timestamp });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete project' });
+  }
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });

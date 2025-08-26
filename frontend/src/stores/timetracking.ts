@@ -347,10 +347,42 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     try {
       const result = await projectsApi.create(project)
       projects.value.push(result)
+      localStorageHelper.setProjects(projects.value)
       setLastSaved(result.lastSaved)
       return result
     } catch (err) {
       error.value = 'Failed to create project'
+      console.error(err)
+      throw err
+    }
+  }
+
+  const updateProject = async (name: string, updates: Partial<ProjectSummary>) => {
+    try {
+      const result = await projectsApi.update(name, updates)
+      const index = projects.value.findIndex(p => p.name === name)
+      if (index !== -1) {
+        projects.value[index] = result
+        localStorageHelper.setProjects(projects.value)
+        setLastSaved(result.lastSaved)
+      }
+      return result
+    } catch (err) {
+      error.value = 'Failed to update project'
+      console.error(err)
+      throw err
+    }
+  }
+
+  const deleteProject = async (name: string) => {
+    try {
+      const result = await projectsApi.delete(name)
+      projects.value = projects.value.filter(p => p.name !== name)
+      localStorageHelper.setProjects(projects.value)
+      setLastSaved(result.lastSaved)
+      return result
+    } catch (err) {
+      error.value = 'Failed to delete project'
       console.error(err)
       throw err
     }
@@ -498,6 +530,8 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     updateTimeEntry,
     deleteTimeEntry,
     createProject,
+    updateProject,
+    deleteProject,
     calculateTotalHours,
     addTodayEntry,
     initialize,

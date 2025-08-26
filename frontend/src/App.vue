@@ -8,7 +8,7 @@ import WorkWeekAnalyzer from '@/components/analytics/WorkWeekAnalyzer.vue'
 const store = useTimeTrackingStore()
 const route = useRoute()
 
-const showWorkWeekAnalyzer = computed(() => route.path !== '/monthly-reports')
+const showWorkWeekAnalyzer = computed(() => route.path !== '/monthly-reports' && route.path !== '/default-projects')
 </script>
 
 <template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useTimeTrackingStore } from '@/stores/timetracking'
+import MonthlyCalendar from '@/components/calendar/MonthlyCalendar.vue'
 import type { TimeEntry } from '@/types'
 
 const store = useTimeTrackingStore()
@@ -12,6 +13,7 @@ selectedMonth.value = currentMonth
 
 const monthlyData = computed(() => {
   if (!selectedMonth.value) return { entries: [], summary: [] }
+  
   
   const monthEntries = store.timeEntries.filter(entry => 
     entry.date.startsWith(selectedMonth.value)
@@ -131,44 +133,10 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="daily-breakdown">
-        <h4>Daily Breakdown</h4>
-        <div v-if="monthlyData.entries.length === 0" class="no-data">
-          No entries found for {{ monthName }}
-        </div>
-        <div v-else class="entries-list">
-          <div 
-            v-for="entry in monthlyData.entries" 
-            :key="entry.id"
-            class="entry-item"
-            :class="{ imported: entry.imported }"
-          >
-            <div class="entry-date">
-              {{ new Date(entry.date).toLocaleDateString('en-US', { 
-                weekday: 'short', 
-                month: 'short', 
-                day: 'numeric' 
-              }) }}
-              <span v-if="entry.imported" class="imported-badge">Imported</span>
-            </div>
-            <div class="entry-details">
-              <div class="entry-time">
-                {{ entry.startTime }} - {{ entry.endTime }} 
-                ({{ entry.totalHours }}h total)
-              </div>
-              <div class="entry-projects">
-                <span 
-                  v-for="project in entry.projects" 
-                  :key="project.id"
-                  class="project-tag"
-                >
-                  {{ project.name }}: {{ project.hoursAllocated }}h
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MonthlyCalendar 
+        :selected-month="selectedMonth"
+        :entries="monthlyData.entries"
+      />
     </div>
   </div>
 </template>
@@ -277,16 +245,14 @@ onMounted(() => {
   cursor: not-allowed;
 }
 
-.projects-summary,
-.daily-breakdown {
+.projects-summary {
   background: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.projects-summary h4,
-.daily-breakdown h4 {
+.projects-summary h4 {
   margin: 0 0 16px 0;
   color: #333;
   font-size: 18px;
@@ -336,68 +302,6 @@ onMounted(() => {
   color: #6c757d;
 }
 
-.entries-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.entry-item {
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: 4px;
-  border-left: 4px solid #007bff;
-}
-
-.entry-item.imported {
-  border-left-color: #28a745;
-  background: #d4edda;
-}
-
-.entry-date {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.imported-badge {
-  background: #28a745;
-  color: white;
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 12px;
-  font-weight: 500;
-}
-
-.entry-details {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.entry-time {
-  font-size: 14px;
-  color: #495057;
-}
-
-.entry-projects {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.project-tag {
-  background: #007bff;
-  color: white;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 500;
-}
-
 @media (max-width: 768px) {
   .reports-header {
     flex-direction: column;
@@ -414,11 +318,6 @@ onMounted(() => {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-  }
-  
-  .entry-projects {
-    flex-direction: column;
-    gap: 4px;
   }
 }
 </style>
