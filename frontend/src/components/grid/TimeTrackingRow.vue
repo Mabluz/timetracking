@@ -774,7 +774,7 @@ const removeProject = (index: number) => {
 
 .project-grid-row {
   display: grid;
-  grid-template-columns: 1fr 120px 1fr 60px;
+  grid-template-columns: 2fr 80px 120px 2fr 60px;
 }
 
 .project-row:last-child {
