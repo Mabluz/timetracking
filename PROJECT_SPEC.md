@@ -22,5 +22,4 @@ Here are some suggestions:
 
 
 ## TODO
-- On the time tracking page I need a new feature. Create a checkbox that you can check and uncheck that toggles how the project dropdowns behave. If you have the checkbox checked then when you click on a project dropdown, all the other project dropdowns that are open should be closed. If you have the checkbox unchecked then you are allowed to open multiple project dropdowns at once and they stay open.
 - 

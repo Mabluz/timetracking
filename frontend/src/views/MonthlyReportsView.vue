@@ -12,7 +12,7 @@ const currentMonth = new Date().toISOString().slice(0, 7) // YYYY-MM format
 selectedMonth.value = currentMonth
 
 const monthlyData = computed(() => {
-  if (!selectedMonth.value) return { entries: [], summary: [] }
+  if (!selectedMonth.value) return { entries: [], summary: [], totalHours: 0, totalDays: 0 }
   
   
   const monthEntries = store.timeEntries.filter(entry => 

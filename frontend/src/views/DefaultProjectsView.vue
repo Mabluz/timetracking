@@ -106,7 +106,7 @@ onMounted(() => {
         <div v-if="editingOriginalName === project.name" class="edit-form">
           <div class="form-row">
             <input
-              v-model="editingProject.name"
+              v-model="editingProject!.name"
               type="text"
               class="form-input"
               @keyup.enter="saveEdit"
