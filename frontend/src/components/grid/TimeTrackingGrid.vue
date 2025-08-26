@@ -7,6 +7,17 @@
         <button @click="addTodayEntry" class="excel-btn primary">
           ➕ Add Today
         </button>
+        <div class="dropdown-control">
+          <label class="dropdown-toggle-checkbox">
+            <input
+              type="checkbox"
+              v-model="closeOtherDropdowns"
+              class="checkbox-input"
+            />
+            <span class="checkbox-label">📋</span>
+            <span class="checkbox-text">Close other dropdowns</span>
+          </label>
+        </div>
         <div class="file-actions">
           <input
             ref="fileInputRef"
@@ -82,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useTimeTrackingStore } from '@/stores/timetracking'
 import TimeTrackingRow from './TimeTrackingRow.vue'
 import type { TimeEntry } from '@/types'
@@ -91,6 +102,7 @@ const store = useTimeTrackingStore()
 const expandedRows = ref(new Set<string>())
 const gridRef = ref<HTMLElement>()
 const fileInputRef = ref<HTMLInputElement>()
+const closeOtherDropdowns = ref(true)
 
 // Removed global keyboard navigation
 
@@ -128,6 +140,10 @@ const toggleProjectsExpansion = (entryId: string) => {
   if (expandedRows.value.has(entryId)) {
     expandedRows.value.delete(entryId)
   } else {
+    if (closeOtherDropdowns.value) {
+      // Close all other dropdowns first
+      expandedRows.value.clear()
+    }
     expandedRows.value.add(entryId)
   }
 }
@@ -279,6 +295,70 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.dropdown-control {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-toggle-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  user-select: none;
+}
+
+.dropdown-toggle-checkbox:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-toggle-checkbox .checkbox-input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.dropdown-toggle-checkbox .checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #dee2e6;
+  border-radius: 3px;
+  background: white;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-toggle-checkbox .checkbox-input:checked + .checkbox-label {
+  background: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.dropdown-toggle-checkbox .checkbox-input:checked + .checkbox-label::before {
+  content: "✓";
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.dropdown-toggle-checkbox .checkbox-input:focus + .checkbox-label {
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.dropdown-toggle-checkbox .checkbox-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
 }
 
 .file-actions {

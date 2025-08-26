@@ -123,7 +123,7 @@ watch(() => inputValue.value, () => {
 
 const validateAndFormatTime = (input: string): string | null => {
   // Remove any non-digit characters except colon
-  let cleaned = input.replace(/[^\d:]/g, '')
+  const cleaned = input.replace(/[^\d:]/g, '')
   
   // Handle various input formats
   if (cleaned.match(/^\d{1,2}$/)) {
