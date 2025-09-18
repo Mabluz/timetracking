@@ -2,7 +2,9 @@
 
 A comprehensive time tracking web application built with Vue.js frontend and Node.js/Express backend. Track your work hours, analyze productivity patterns, and generate detailed reports with overtime calculations.
 
-The backend´s .env file needs to point to a .json file that holds the data. I have this .json file in my dropbox folder, making it auto backup when I preform changes on the webpage. 
+The timetracking application is currently made for running locally on your laptop, and therefore uses no DB, just a .json file as storage. Where I run the start scripts found on root to log hours (shortcut on dock).
+
+The backend´s .env file needs to point to a .json file that holds the data. I have this .json file in my dropbox folder, making it auto backup when I preform changes on the webpage. And also makes it available synced on different computers.
 
 ## 🚀 Features
 
