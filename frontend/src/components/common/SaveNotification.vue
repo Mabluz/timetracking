@@ -64,6 +64,7 @@ const formattedTime = computed(() => {
   font-size: 14px;
   line-height: 1.2;
   margin-bottom: 2px;
+  color: black;
 }
 
 .save-time {
@@ -71,6 +72,7 @@ const formattedTime = computed(() => {
   font-family: 'Courier New', monospace;
   line-height: 1.2;
   opacity: 0.8;
+  color: black;
 }
 
 /* Transition animations */

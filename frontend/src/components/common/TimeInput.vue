@@ -65,7 +65,7 @@ watch(() => props.modelValue, (newValue) => {
 }, { immediate: true })
 
 // Time value for the VueDatePicker (uses { hours, minutes } format)
-const directTimeValue = reactive({ hours: 0, minutes: 0 })
+const directTimeValue = ref({ hours: 0, minutes: 0 })
 
 // Handle when time is selected in time picker
 const handleTimeSelect = (value: { hours: number; minutes: number } | null) => {
@@ -93,20 +93,20 @@ const initializeTimeValue = () => {
     const adjustedMinute = minute === 60 ? 0 : minute
     const adjustedHour = minute === 60 ? (now.getHours() + 1) % 24 : now.getHours()
     
-    directTimeValue.hours = adjustedHour
-    directTimeValue.minutes = adjustedMinute
+    directTimeValue.value.hours = adjustedHour
+    directTimeValue.value.minutes = adjustedMinute
     return
   }
-  
+
   const [hours, minutes] = timeString.split(':').map(Number)
   if (isNaN(hours) || isNaN(minutes)) {
-    directTimeValue.hours = 0
-    directTimeValue.minutes = 0
+    directTimeValue.value.hours = 0
+    directTimeValue.value.minutes = 0
     return
   }
-  
-  directTimeValue.hours = hours
-  directTimeValue.minutes = minutes
+
+  directTimeValue.value.hours = hours
+  directTimeValue.value.minutes = minutes
 }
 
 // Watch for modelValue changes and update timeValue
@@ -124,44 +124,46 @@ watch(() => inputValue.value, () => {
 const validateAndFormatTime = (input: string): string | null => {
   // Remove any non-digit characters except colon
   const cleaned = input.replace(/[^\d:]/g, '')
-  
+
   // Handle various input formats
   if (cleaned.match(/^\d{1,2}$/)) {
     // Just hours (1-2 digits)
-    const hour = Math.min(parseInt(cleaned, 10), 23)
-    return hour <= 23 ? `${hour.toString().padStart(2, '0')}:00` : null
+    const hour = parseInt(cleaned, 10)
+    if (hour >= 0 && hour <= 23) {
+      return `${hour.toString().padStart(2, '0')}:00`
+    }
   }
-  
-  if (cleaned.match(/^\d{1,2}:\d{1,2}$/)) {
-    // Full time format
+
+  if (cleaned.match(/^\d{1,2}:\d{0,2}$/)) {
+    // Time format with optional minutes (handle cases like "8:" or "08:")
     const [hourStr, minuteStr] = cleaned.split(':')
     const hour = parseInt(hourStr, 10)
-    const minute = parseInt(minuteStr, 10)
-    
-    if (hour <= 23 && minute <= 59) {
+    const minute = minuteStr ? parseInt(minuteStr, 10) : 0
+
+    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
       return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
     }
   }
-  
+
   if (cleaned.match(/^\d{3,4}$/)) {
     // HHMM or HMM format (like 2130 or 915)
     if (cleaned.length === 3) {
       // HMM format (e.g., 915 = 09:15)
       const hour = parseInt(cleaned.substring(0, 1), 10)
       const minute = parseInt(cleaned.substring(1), 10)
-      if (hour <= 23 && minute <= 59) {
+      if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
         return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
       }
     } else {
       // HHMM format (e.g., 2130 = 21:30)
       const hour = parseInt(cleaned.substring(0, 2), 10)
       const minute = parseInt(cleaned.substring(2), 10)
-      if (hour <= 23 && minute <= 59) {
+      if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
         return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
       }
     }
   }
-  
+
   return null
 }
 
@@ -185,7 +187,7 @@ const handleBlur = (event: FocusEvent) => {
     emit('update:modelValue', '')
     return
   }
-  
+
   const formattedTime = validateAndFormatTime(value)
   if (formattedTime) {
     inputValue.value = formattedTime
@@ -216,8 +218,8 @@ const setCurrentTime = () => {
   const adjustedMinute = minute === 60 ? 0 : minute
   const adjustedHour = minute === 60 ? (hour + 1) % 24 : hour
   
-  directTimeValue.hours = adjustedHour
-  directTimeValue.minutes = adjustedMinute
+  directTimeValue.value.hours = adjustedHour
+  directTimeValue.value.minutes = adjustedMinute
   
   const timeString = `${adjustedHour.toString().padStart(2, '0')}:${adjustedMinute.toString().padStart(2, '0')}`
   inputValue.value = timeString
