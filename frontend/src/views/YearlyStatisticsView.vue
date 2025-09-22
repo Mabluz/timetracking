@@ -3,13 +3,28 @@
     <div class="statistics-header">
       <h2>📊 Yearly Statistics</h2>
 
-      <div class="year-selector">
-        <label for="year">Select Year:</label>
-        <select id="year" v-model="selectedYear" class="year-input">
-          <option v-for="year in availableYears" :key="year" :value="year">
-            {{ year }}
-          </option>
-        </select>
+      <div class="controls-group">
+        <div class="year-selector">
+          <label for="year">Select Year:</label>
+          <select id="year" v-model="selectedYear" class="year-input">
+            <option v-for="year in availableYears" :key="year" :value="year">
+              {{ year }}
+            </option>
+          </select>
+        </div>
+
+        <div class="rate-selector">
+          <label for="hourlyRate">Billable Rate (kr/h):</label>
+          <input
+            id="hourlyRate"
+            v-model.number="billableHourlyRate"
+            type="number"
+            min="0"
+            step="50"
+            class="rate-input"
+            placeholder="1000"
+          />
+        </div>
       </div>
     </div>
 
@@ -195,7 +210,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useTimeTrackingStore } from '@/stores/timetracking'
 import BarChart from '@/components/charts/BarChart.vue'
 import DonutChart from '@/components/charts/DonutChart.vue'
@@ -203,6 +218,19 @@ import type { YearlyStatistics } from '@/types'
 
 const store = useTimeTrackingStore()
 const selectedYear = ref<number>(new Date().getFullYear())
+
+// Load billable hourly rate from localStorage or use default
+const loadBillableHourlyRate = (): number => {
+  try {
+    const stored = localStorage.getItem('timetracking_billable_hourly_rate')
+    return stored ? Number(stored) : (Number(import.meta.env.VITE_DEFAULT_HOURLY_RATE) || 1000)
+  } catch (error) {
+    console.error('Error loading billable hourly rate from localStorage:', error)
+    return Number(import.meta.env.VITE_DEFAULT_HOURLY_RATE) || 1000
+  }
+}
+
+const billableHourlyRate = ref<number>(loadBillableHourlyRate())
 
 const defaultWorkDayHours = computed(() => Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5)
 
@@ -216,7 +244,7 @@ const availableYears = computed(() => {
 })
 
 const statistics = computed((): YearlyStatistics | null => {
-  return store.calculateYearlyStatistics(selectedYear.value)
+  return store.calculateYearlyStatistics(selectedYear.value, billableHourlyRate.value)
 })
 
 const mostFrequentProject = computed(() => {
@@ -253,6 +281,15 @@ const billableChartData = computed(() => {
   ]
 })
 
+// Watch for changes to billable hourly rate and save to localStorage
+watch(billableHourlyRate, (newRate) => {
+  try {
+    localStorage.setItem('timetracking_billable_hourly_rate', String(newRate))
+  } catch (error) {
+    console.error('Error saving billable hourly rate to localStorage:', error)
+  }
+})
+
 onMounted(() => {
   if (store.timeEntries.length === 0) {
     store.fetchTimeEntries()
@@ -282,23 +319,46 @@ onMounted(() => {
   font-weight: 600;
 }
 
-.year-selector {
+.controls-group {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.year-selector,
+.rate-selector {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.year-selector label {
+.year-selector label,
+.rate-selector label {
   font-weight: 500;
   color: #495057;
+  white-space: nowrap;
 }
 
-.year-input {
+.year-input,
+.rate-input {
   padding: 8px 12px;
   border: 1px solid #ced4da;
   border-radius: 4px;
   font-size: 14px;
   background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.year-input:focus,
+.rate-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.rate-input {
+  width: 120px;
 }
 
 .statistics-content {
@@ -432,11 +492,13 @@ onMounted(() => {
 .project-card.first {
   background: linear-gradient(135deg, #ffd700, #ffed4a);
   border-left-color: #f39c12;
+  color: black;
 }
 
 .project-card.second {
   background: linear-gradient(135deg, #c0c0c0, #95a5a6);
   border-left-color: #7f8c8d;
+  color: black;
 }
 
 .project-card.third {
@@ -629,6 +691,23 @@ onMounted(() => {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+
+  .controls-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .year-selector,
+  .rate-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .rate-input {
+    width: 140px;
   }
 
   .charts-section {

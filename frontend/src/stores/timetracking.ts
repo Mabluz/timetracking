@@ -438,7 +438,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     lastEditedEntry.value = localStorageHelper.getLastEditedEntry()
   }
 
-  const calculateYearlyStatistics = (year: number): YearlyStatistics | null => {
+  const calculateYearlyStatistics = (year: number, hourlyRate?: number): YearlyStatistics | null => {
     const yearEntries = timeEntries.value.filter(entry => {
       const entryYear = new Date(entry.date).getFullYear()
       return entryYear === year
@@ -448,8 +448,8 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
       return null
     }
 
-    // Default hourly rate - configurable via environment variable
-    const DEFAULT_HOURLY_RATE = Number(import.meta.env.VITE_DEFAULT_HOURLY_RATE) || 750
+    // Use provided hourly rate or fall back to environment variable default
+    const DEFAULT_HOURLY_RATE = hourlyRate || Number(import.meta.env.VITE_DEFAULT_HOURLY_RATE) || 750
 
     // Calculate total hours and project stats
     const projectStats = new Map<string, YearlyProjectStats>()
