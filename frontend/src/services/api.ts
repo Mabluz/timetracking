@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { TimeEntry, ProjectSummary } from '@/types'
+import { useAuthStore } from '@/stores/auth'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3011'
 
@@ -11,10 +12,29 @@ const api = axios.create({
   }
 })
 
+// Add request interceptor to include auth token
+api.interceptors.request.use((config) => {
+  const authStore = useAuthStore()
+  const authHeader = authStore.getAuthHeader()
+  
+  if (authHeader.Authorization) {
+    config.headers.Authorization = authHeader.Authorization
+  }
+  
+  return config
+})
+
 // Add response interceptor for error handling
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Handle 401 Unauthorized
+    if (error.response?.status === 401) {
+      console.warn('Unauthorized - clearing token')
+      const authStore = useAuthStore()
+      authStore.logout()
+    }
+    
     console.error('API Error:', error)
     return Promise.reject(error)
   }

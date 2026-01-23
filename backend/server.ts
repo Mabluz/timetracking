@@ -5,6 +5,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { validateTimeEntry, validateTimeEntryUpdate, validateProject } from './middleware/validation';
 import { logger, requestLogger, errorHandler } from './middleware/logger';
+import { requireAuth, authenticatePassword, isPasswordProtectionEnabled } from './middleware/auth';
 import { createStorage, IStorage } from './services/storage';
 import { initializeDatabase, dbOperations, closeDatabase } from './services/database';
 
@@ -173,6 +174,56 @@ async function runDataMigrationIfEnabled() {
 app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
+
+// Public auth routes (no password protection needed)
+app.post('/api/auth/login', (req: Request, res: Response) => {
+  const { password } = req.body;
+
+  if (!password) {
+    res.status(400).json({ error: 'Password is required' });
+    return;
+  }
+
+  const token = authenticatePassword(password);
+
+  if (!token) {
+    logger.warn('Failed login attempt');
+    res.status(401).json({ error: 'Invalid password' });
+    return;
+  }
+
+  logger.info('User authenticated successfully');
+  res.json({ token, message: 'Authentication successful' });
+});
+
+app.get('/api/auth/verify', (req: Request, res: Response) => {
+  const isProtected = isPasswordProtectionEnabled();
+  res.json({ 
+    protected: isProtected,
+    requiresAuth: isProtected
+  });
+});
+
+// Data routes - apply authentication middleware only to these routes
+const protectedRoutes = [
+  '/api/timeentries',
+  '/api/projects',
+  '/api/health'
+];
+
+// Apply authentication middleware only to protected routes
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // Check if this is a protected route
+  const isProtectedRoute = protectedRoutes.some(route => req.path.startsWith(route));
+  
+  if (isProtectedRoute) {
+    // Apply auth middleware
+    requireAuth(req, res, next);
+  } else {
+    // Allow public routes
+    next();
+  }
+});
 
 // Routes
 app.get('/api/timeentries', async (req, res) => {

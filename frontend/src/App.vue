@@ -1,44 +1,73 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { computed, onMounted, ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 import { useTimeTrackingStore } from '@/stores/timetracking'
 import TabBar from '@/components/navigation/TabBar.vue'
 import WorkWeekAnalyzer from '@/components/analytics/WorkWeekAnalyzer.vue'
 
+const authStore = useAuthStore()
 const store = useTimeTrackingStore()
 const route = useRoute()
+const router = useRouter()
+const isInitialized = ref(false)
 
 const showWorkWeekAnalyzer = computed(() => route.path !== '/monthly-reports' && route.path !== '/default-projects' && route.path !== '/yearly-statistics')
+const isLoginPage = computed(() => route.name === 'login')
+
+// Initialize auth on app load
+onMounted(async () => {
+  try {
+    await authStore.checkIfPasswordProtected()
+    
+    // If password is required but user is not authenticated, go to login
+    if (authStore.isPasswordProtected && !authStore.isAuthenticated && route.name !== 'login') {
+      await router.push({ name: 'login' })
+    }
+  } catch (error) {
+    console.error('Error initializing auth:', error)
+  } finally {
+    isInitialized.value = true
+  }
+})
 </script>
 
 <template>
   <div id="app">
-    <div class="app-layout">
-      <!-- Left Sidebar Header -->
-      <aside class="app-sidebar" :class="{ 'hide-analyzer': !showWorkWeekAnalyzer }">
-        <div class="sidebar-header">
-          <h1>Time Tracking Application</h1>
-          <div class="header-status">
-            <span class="status-indicator" :class="{ 'online': store.isOnline, 'offline': !store.isOnline }">
-              {{ store.isOnline ? 'Online' : 'Offline' }}
-            </span>
+    <!-- Show login page without layout -->
+    <template v-if="isLoginPage || !isInitialized">
+      <RouterView />
+    </template>
+    
+    <!-- Show main app layout for authenticated pages -->
+    <template v-else>
+      <div class="app-layout">
+        <!-- Left Sidebar Header -->
+        <aside class="app-sidebar" :class="{ 'hide-analyzer': !showWorkWeekAnalyzer }">
+          <div class="sidebar-header">
+            <h1>Time Tracking Application</h1>
+            <div class="header-status">
+              <span class="status-indicator" :class="{ 'online': store.isOnline, 'offline': !store.isOnline }">
+                {{ store.isOnline ? 'Online' : 'Offline' }}
+              </span>
+            </div>
           </div>
-        </div>
-        
-        <!-- Work Week Analysis in Sidebar -->
-        <div v-if="showWorkWeekAnalyzer" class="sidebar-content">
-          <WorkWeekAnalyzer />
-        </div>
-      </aside>
+          
+          <!-- Work Week Analysis in Sidebar -->
+          <div v-if="showWorkWeekAnalyzer" class="sidebar-content">
+            <WorkWeekAnalyzer />
+          </div>
+        </aside>
 
-      <!-- Right Main Content -->
-      <main class="app-main">
-        <TabBar />
-        <div class="router-content">
-          <RouterView />
-        </div>
-      </main>
-    </div>
+        <!-- Right Main Content -->
+        <main class="app-main">
+          <TabBar />
+          <div class="router-content">
+            <RouterView />
+          </div>
+        </main>
+      </div>
+    </template>
   </div>
 </template>
 
