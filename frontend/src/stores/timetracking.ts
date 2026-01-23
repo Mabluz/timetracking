@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { TimeEntry, ProjectSummary, YearlyStatistics, YearlyProjectStats, MonthlyStats } from '@/types'
 import { timeEntriesApi, projectsApi } from '@/services/api'
+import { useAuthStore } from './auth'
 
 // Simple UUID v4 generator for client-side use
 const generateUUID = (): string => {
@@ -157,8 +158,14 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
       if (isOnline.value) {
         // Use direct fetch instead of axios to avoid issues
         try {
+          const authStore = useAuthStore()
           const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3011';
-          const response = await fetch(`${API_URL}/api/timeentries`);
+          const response = await fetch(`${API_URL}/api/timeentries`, {
+            headers: {
+              'Content-Type': 'application/json',
+              ...authStore.getAuthHeader()
+            }
+          });
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
           }
