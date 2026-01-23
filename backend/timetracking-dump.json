@@ -1,0 +1,2287 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastModified": "2026-01-23T14:25:11.674Z",
+    "totalEntries": 93
+  },
+  "timeEntries": [
+    {
+      "date": "2025-08-06T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "18:00",
+      "hoursAway": 3.5,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1756071029732",
+          "name": "AI Kompetanse",
+          "billable": false,
+          "hoursAllocated": 4,
+          "comment": "Sett på Claude"
+        }
+      ],
+      "id": "d33ac22d-5da0-46ae-bdec-953c434ce62f",
+      "createdAt": "2025-08-24T21:26:37.068Z",
+      "updatedAt": "2025-09-12T18:50:12.518Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-07T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "14:30",
+      "hoursAway": 1,
+      "totalHours": 3.5,
+      "projects": [
+        {
+          "id": "proj-1756071080981",
+          "name": "AI Kompetanse",
+          "billable": false,
+          "hoursAllocated": 3.5,
+          "comment": ""
+        }
+      ],
+      "id": "10f6074b-f5f1-4e64-8b1b-433ba4f8c421",
+      "createdAt": "2025-08-24T21:30:47.743Z",
+      "updatedAt": "2025-09-12T18:50:12.573Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-08T00:00:00.000Z",
+      "startTime": "11:00",
+      "endTime": "15:00",
+      "hoursAway": 1,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1756071131626",
+          "name": "AI Kompetanse",
+          "billable": false,
+          "hoursAllocated": 2,
+          "comment": "Sett på Claude"
+        },
+        {
+          "id": "proj-1756071142393",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 1,
+          "comment": "Sett på SP"
+        }
+      ],
+      "id": "d79a2dec-af4e-4c4c-a014-3a8e6d924d30",
+      "createdAt": "2025-08-24T21:31:45.566Z",
+      "updatedAt": "2025-09-12T18:50:12.611Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-11T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "14:00",
+      "hoursAway": 0.5,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1756071191591",
+          "name": "AI Kompetanse",
+          "billable": false,
+          "hoursAllocated": 3,
+          "comment": "Claude"
+        },
+        {
+          "id": "proj-1756071207485",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 1.5,
+          "comment": ""
+        }
+      ],
+      "id": "e6cb821e-929c-469c-bc0e-282e4794738b",
+      "createdAt": "2025-08-24T21:32:34.697Z",
+      "updatedAt": "2025-09-12T18:50:12.652Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-12T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "15:00",
+      "hoursAway": 0.5,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1756071253037",
+          "name": "Internt",
+          "billable": false,
+          "hoursAllocated": 1,
+          "comment": "Skriv til styret"
+        },
+        {
+          "id": "proj-1756071266160",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 1,
+          "comment": "Sett på SP Qdrant"
+        },
+        {
+          "id": "proj-1756071301296",
+          "name": "AI Kompetanse",
+          "billable": false,
+          "hoursAllocated": 2.5,
+          "comment": "Claude"
+        }
+      ],
+      "id": "72039475-1870-43a4-b5dd-a80d84d06c3c",
+      "createdAt": "2025-08-24T21:33:44.766Z",
+      "updatedAt": "2025-09-12T18:50:12.694Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-13T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "13:00",
+      "hoursAway": 0.5,
+      "totalHours": 3.5,
+      "projects": [
+        {
+          "id": "proj-1756071453555",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 3.5,
+          "comment": "SP Refactor"
+        }
+      ],
+      "id": "1f131d55-fa20-4ccd-a83e-02e7105fa972",
+      "createdAt": "2025-08-24T21:37:10.881Z",
+      "updatedAt": "2025-09-12T18:50:12.732Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-14T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "14:30",
+      "hoursAway": 0,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1756071506676",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 2,
+          "comment": "VPN and Vault setup"
+        },
+        {
+          "id": "proj-1756071529784",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 2.5,
+          "comment": "SP Refactor"
+        }
+      ],
+      "id": "9849bbec-2ee6-4f23-8edc-23de2fd8c261",
+      "createdAt": "2025-08-24T21:37:53.149Z",
+      "updatedAt": "2025-09-12T18:50:12.766Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-15T00:00:00.000Z",
+      "startTime": "09:45",
+      "endTime": "14:15",
+      "hoursAway": 1,
+      "totalHours": 3.5,
+      "projects": [
+        {
+          "id": "proj-1756071638188",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 3.5,
+          "comment": ""
+        }
+      ],
+      "id": "778ba30b-3e1e-4954-8f8c-8b2c99b04edc",
+      "createdAt": "2025-08-24T21:38:58.942Z",
+      "updatedAt": "2025-09-12T18:50:12.826Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-18T00:00:00.000Z",
+      "startTime": "13:00",
+      "endTime": "15:00",
+      "hoursAway": 0,
+      "totalHours": 2,
+      "projects": [
+        {
+          "id": "proj-1756071671397",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 2,
+          "comment": "SP Refactor"
+        }
+      ],
+      "id": "f71ddf2f-f572-44e6-9a1f-5bccd5a43a54",
+      "createdAt": "2025-08-24T21:40:49.813Z",
+      "updatedAt": "2025-09-12T18:50:12.862Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-19T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "14:30",
+      "hoursAway": 0,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1756071707914",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 4.5,
+          "comment": "SP Refactor"
+        }
+      ],
+      "id": "00b0797c-5d88-4dda-971c-1328034a0f6a",
+      "createdAt": "2025-08-24T21:41:26.896Z",
+      "updatedAt": "2025-09-12T18:50:12.895Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-20T00:00:00.000Z",
+      "startTime": "11:00",
+      "endTime": "15:00",
+      "hoursAway": 1.5,
+      "totalHours": 2.5,
+      "projects": [
+        {
+          "id": "proj-1756071768273",
+          "name": "AI Kompetanse",
+          "billable": false,
+          "hoursAllocated": 1.5,
+          "comment": "Claude"
+        },
+        {
+          "id": "proj-1756071785765",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 1,
+          "comment": "VPN and azure"
+        }
+      ],
+      "id": "6661d6f8-e33e-4da9-b971-e61df1f40d81",
+      "createdAt": "2025-08-24T21:42:05.400Z",
+      "updatedAt": "2025-09-12T18:50:12.925Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-21T00:00:00.000Z",
+      "startTime": "09:30",
+      "endTime": "14:30",
+      "hoursAway": 0.5,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1756071836459",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 4.5,
+          "comment": "SP med Erik"
+        }
+      ],
+      "id": "2ab14702-70af-425f-a3ff-529b880215bd",
+      "createdAt": "2025-08-24T21:43:27.261Z",
+      "updatedAt": "2025-09-12T18:50:12.961Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-22T00:00:00.000Z",
+      "startTime": "12:30",
+      "endTime": "15:30",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1756071891820",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 3,
+          "comment": "SP oppsett"
+        }
+      ],
+      "id": "838919e9-cd70-4ad1-99cc-95d4349d435a",
+      "createdAt": "2025-08-24T21:44:15.960Z",
+      "updatedAt": "2025-09-12T18:50:12.995Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-25T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "15:00",
+      "hoursAway": 0.5,
+      "totalHours": 5.5,
+      "projects": [
+        {
+          "id": "proj-1756156798531",
+          "name": "AI Kompetanse",
+          "billable": false,
+          "hoursAllocated": 0.5,
+          "comment": "AI"
+        },
+        {
+          "id": "proj-1756156840534",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 5,
+          "comment": "Gjennomgang med Erik"
+        }
+      ],
+      "id": "4a856249-75e9-44f4-89f5-410763a3f704",
+      "createdAt": "2025-08-24T22:02:56.173Z",
+      "updatedAt": "2025-09-12T18:50:13.028Z",
+      "imported": true
+    },
+    {
+      "date": "2025-08-26T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "15:30",
+      "hoursAway": 0.5,
+      "totalHours": 6,
+      "projects": [
+        {
+          "id": "proj-1756193583009",
+          "name": "AI Kompetanse",
+          "billable": false,
+          "hoursAllocated": 0.5,
+          "comment": "Time tracking"
+        },
+        {
+          "id": "proj-1756194841178",
+          "name": "SP - Unpaid",
+          "billable": false,
+          "hoursAllocated": 5.5,
+          "comment": "SP med Erik"
+        }
+      ],
+      "imported": true,
+      "id": "a4cdbf04-add0-4fc0-9cfd-38934ca86564",
+      "createdAt": "2025-08-25T21:21:46.169Z",
+      "updatedAt": "2025-09-12T18:50:13.060Z"
+    },
+    {
+      "date": "2025-08-27T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "10:00",
+      "hoursAway": 0,
+      "totalHours": 1,
+      "projects": [
+        {
+          "id": "proj-1756244218120",
+          "name": "SP - Unpaid",
+          "hoursAllocated": 1,
+          "comment": "",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "86463d33-fc9b-4894-9378-ee5ddcbd2dc5",
+      "createdAt": "2025-08-26T21:26:44.988Z",
+      "updatedAt": "2025-09-12T18:50:13.094Z"
+    },
+    {
+      "date": "2025-08-28T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "11:00",
+      "hoursAway": 0,
+      "totalHours": 2,
+      "projects": [
+        {
+          "id": "proj-1756244229015",
+          "name": "SP - Unpaid",
+          "hoursAllocated": 2,
+          "comment": "",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "1c8a3b98-d6dd-480a-9212-e93e35a779bb",
+      "createdAt": "2025-08-26T21:26:52.964Z",
+      "updatedAt": "2025-09-12T18:50:13.126Z"
+    },
+    {
+      "date": "2025-08-29T00:00:00.000Z",
+      "startTime": "09:30",
+      "endTime": "15:30",
+      "hoursAway": 0.5,
+      "totalHours": 5.5,
+      "projects": [
+        {
+          "id": "proj-1756244239066",
+          "name": "SP - Unpaid",
+          "hoursAllocated": 5.5,
+          "comment": "",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "576bbf43-4107-483f-bd80-b3a459868d5e",
+      "createdAt": "2025-08-26T21:26:59.276Z",
+      "updatedAt": "2025-09-12T18:50:13.161Z"
+    },
+    {
+      "date": "2025-08-04T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "hoursAway": 0.5,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1756244002212",
+          "name": "Permisjon",
+          "hoursAllocated": 7.5,
+          "comment": "Barnehage tilvenning",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "32437f24-5345-45ca-858f-9898d903991c",
+      "createdAt": "2025-08-26T21:30:08.736Z",
+      "updatedAt": "2025-09-12T18:50:13.195Z"
+    },
+    {
+      "date": "2025-08-05T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "hoursAway": 0.5,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1756243977997",
+          "name": "Permisjon",
+          "hoursAllocated": 7.5,
+          "comment": "Barnehage tilvenning",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "a08608af-8548-43a1-b0eb-9079ee9a2fb0",
+      "createdAt": "2025-08-26T21:30:26.255Z",
+      "updatedAt": "2025-09-12T18:50:13.241Z"
+    },
+    {
+      "date": "2025-09-01T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "15:00",
+      "hoursAway": 1,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1756738726620",
+          "name": "SP - Paid",
+          "hoursAllocated": 4,
+          "comment": "Stop problemer",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "3898dc25-8fe7-4c1a-adb2-160f58b53542",
+      "createdAt": "2025-09-01T07:57:06.118Z",
+      "updatedAt": "2025-10-13T08:55:33.041Z"
+    },
+    {
+      "date": "2025-09-02T00:00:00.000Z",
+      "startTime": "09:30",
+      "endTime": "17:00",
+      "hoursAway": 0,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1756824442561",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "Auth fail on stream",
+          "billable": true
+        },
+        {
+          "id": "proj-1756824479597",
+          "name": "SP - Paid",
+          "hoursAllocated": 4.5,
+          "comment": "Qdrant ip + hacking?",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "09fa6333-2879-4c1e-98e4-6a9b0429e8e7",
+      "createdAt": "2025-09-02T08:48:42.619Z",
+      "updatedAt": "2025-10-13T08:55:33.060Z"
+    },
+    {
+      "date": "2025-09-03T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "11:30",
+      "hoursAway": 0,
+      "totalHours": 2.5,
+      "projects": [
+        {
+          "id": "proj-1756890305984",
+          "name": "SP - Paid",
+          "hoursAllocated": 2.5,
+          "comment": "Qdrant Logger",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "d6b4d41a-b171-406a-8ef3-635a63c53d99",
+      "createdAt": "2025-09-03T09:04:09.559Z",
+      "updatedAt": "2025-10-13T08:55:33.072Z"
+    },
+    {
+      "date": "2025-09-04T00:00:00.000Z",
+      "startTime": "12:00",
+      "endTime": "16:00",
+      "hoursAway": 0,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1756980337441",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "Stop Chat function for auth",
+          "billable": true
+        },
+        {
+          "id": "proj-1756990556830",
+          "name": "Internt",
+          "hoursAllocated": 2,
+          "comment": "Fink møte om EG / SP + Skjermbilder",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "9ea68695-339b-486e-98a3-0f35f803cef6",
+      "createdAt": "2025-09-04T10:00:34.273Z",
+      "updatedAt": "2025-10-13T08:55:33.080Z"
+    },
+    {
+      "date": "2025-09-05T00:00:00.000Z",
+      "startTime": "09:30",
+      "endTime": "15:00",
+      "hoursAway": 0,
+      "totalHours": 5.5,
+      "projects": [
+        {
+          "id": "proj-1757068779589",
+          "name": "Internt",
+          "hoursAllocated": 0.5,
+          "comment": "Fink møte",
+          "billable": false
+        },
+        {
+          "id": "proj-1757068793081",
+          "name": "SP - Unpaid",
+          "hoursAllocated": 3.5,
+          "comment": "Få mobil miljø opp å kjøre",
+          "billable": false
+        },
+        {
+          "id": "proj-1757081259346",
+          "name": "Internt",
+          "hoursAllocated": 1.5,
+          "comment": "Evaluere hvordan vi kan setter opp mot flere kunder",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "97e1e91a-06c5-4022-abcb-cca3a31df309",
+      "createdAt": "2025-09-05T10:37:18.656Z",
+      "updatedAt": "2025-10-13T08:55:33.088Z"
+    },
+    {
+      "date": "2025-09-08T00:00:00.000Z",
+      "startTime": "09:30",
+      "endTime": "16:30",
+      "hoursAway": 0,
+      "totalHours": 7,
+      "projects": [
+        {
+          "id": "proj-1757328164475",
+          "name": "Internt",
+          "hoursAllocated": 7,
+          "comment": "Evaluere hvordan vi kan setter opp mot flere kunder",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "9066e379-6c56-4c41-a1d4-c7ffc4144cf5",
+      "createdAt": "2025-09-08T10:42:24.859Z",
+      "updatedAt": "2025-10-13T08:55:33.097Z"
+    },
+    {
+      "date": "2025-09-09T00:00:00.000Z",
+      "startTime": "09:30",
+      "endTime": "18:15",
+      "hoursAway": 1.75,
+      "totalHours": 7,
+      "projects": [
+        {
+          "id": "proj-1757410874231",
+          "name": "Internt",
+          "hoursAllocated": 5,
+          "comment": "Evaluere hvordan vi kan setter opp mot flere kunder",
+          "billable": false
+        },
+        {
+          "id": "proj-1757423572045",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "comprimised packages",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "5e56f5bb-4254-4512-8000-a38524717515",
+      "createdAt": "2025-09-09T09:40:56.444Z",
+      "updatedAt": "2025-10-13T08:55:33.104Z"
+    },
+    {
+      "date": "2025-09-12T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "14:45",
+      "hoursAway": 0.25,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1757665209369",
+          "name": "Internt",
+          "hoursAllocated": 0.5,
+          "comment": "Kvitremøte",
+          "billable": false
+        },
+        {
+          "id": "proj-1757701867564",
+          "name": "SP - Paid",
+          "hoursAllocated": 4,
+          "comment": "Fikse stop button and web crash",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "4660c697-92d2-43b2-b310-5a1688fe639a",
+      "createdAt": "2025-09-12T08:19:52.678Z",
+      "updatedAt": "2025-10-13T08:55:33.112Z"
+    },
+    {
+      "date": "2025-09-10T00:00:00.000Z",
+      "startTime": "14:00",
+      "endTime": "16:00",
+      "hoursAway": 0,
+      "totalHours": 2,
+      "projects": [
+        {
+          "id": "proj-1757665306025",
+          "name": "SP - Paid",
+          "hoursAllocated": 1,
+          "comment": "Problemer med node modules",
+          "billable": true
+        },
+        {
+          "id": "proj-1757665350006",
+          "name": "Internt",
+          "hoursAllocated": 1,
+          "comment": "AI workshop",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "c3922ef9-b58b-4076-bdee-e6964a675586",
+      "createdAt": "2025-09-12T08:21:23.169Z",
+      "updatedAt": "2025-10-13T08:55:33.120Z"
+    },
+    {
+      "date": "2025-09-11T00:00:00.000Z",
+      "startTime": "11:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 1,
+      "projects": [
+        {
+          "id": "proj-1757665406748",
+          "name": "AI Kompetanse",
+          "hoursAllocated": 1,
+          "comment": "Oppsett av MCP",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "b036356f-9451-43e3-82d5-263b7ec430d7",
+      "createdAt": "2025-09-12T08:23:08.948Z",
+      "updatedAt": "2025-10-13T08:55:33.129Z"
+    },
+    {
+      "date": "2025-09-15T00:00:00.000Z",
+      "startTime": "09:30",
+      "endTime": "15:30",
+      "hoursAway": 0.5,
+      "totalHours": 5.5,
+      "projects": [
+        {
+          "id": "proj-1757921469534",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "auth throwout",
+          "billable": true
+        },
+        {
+          "id": "proj-1757932119536",
+          "name": "Internt",
+          "hoursAllocated": 4,
+          "comment": "Get android SP development to run on mac",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "9cd99762-97b0-4c01-99a0-9d67dfa3ff64",
+      "createdAt": "2025-09-15T07:30:56.418Z",
+      "updatedAt": "2025-10-13T08:55:33.136Z"
+    },
+    {
+      "date": "2025-09-16T00:00:00.000Z",
+      "startTime": "12:15",
+      "endTime": "14:45",
+      "hoursAway": 0,
+      "totalHours": 2.5,
+      "projects": [
+        {
+          "id": "proj-1758027877258",
+          "name": "SP - Paid",
+          "hoursAllocated": 2.5,
+          "comment": "Stop on android working",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "487b5478-c070-43b2-98b9-6a8e78cf8b74",
+      "createdAt": "2025-09-16T10:18:40.857Z",
+      "updatedAt": "2025-10-13T08:55:33.144Z"
+    },
+    {
+      "date": "2025-09-17T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "17:30",
+      "hoursAway": 0.5,
+      "totalHours": 6.5,
+      "projects": [
+        {
+          "id": "proj-1758097909371",
+          "name": "Internt",
+          "hoursAllocated": 1.5,
+          "comment": "Get iOS working",
+          "billable": false
+        },
+        {
+          "id": "proj-1758139462828",
+          "name": "SP - Paid",
+          "hoursAllocated": 5,
+          "comment": "Cleanup on the current auth issues branch and finish testing",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "475c3ac3-b8c3-478e-b07d-30ba29250af4",
+      "createdAt": "2025-09-17T08:31:35.317Z",
+      "updatedAt": "2025-10-13T08:55:33.151Z"
+    },
+    {
+      "date": "2025-09-18T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "15:00",
+      "hoursAway": 0.5,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1758285836785",
+          "name": "Internt",
+          "hoursAllocated": 1.5,
+          "comment": "Picked up new laptop and started setting it up",
+          "billable": false
+        },
+        {
+          "id": "proj-1758285882460",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "New tests and improved coverage on the project",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "ca91337d-b089-493e-8a6b-1f446f304562",
+      "createdAt": "2025-09-18T09:03:34.088Z",
+      "updatedAt": "2025-10-13T08:55:33.159Z"
+    },
+    {
+      "date": "2025-09-19T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "13:30",
+      "hoursAway": 0.5,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1758285908904",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "Improved documentation for first time setup",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "1814d4a1-88f9-49c3-9bf2-4e6a71968d70",
+      "createdAt": "2025-09-19T12:42:37.085Z",
+      "updatedAt": "2025-10-13T08:55:33.165Z"
+    },
+    {
+      "date": "2025-09-22T00:00:00.000Z",
+      "startTime": "10:15",
+      "endTime": "12:15",
+      "hoursAway": 0,
+      "totalHours": 2,
+      "projects": [
+        {
+          "id": "proj-1758543177056",
+          "name": "Internt",
+          "hoursAllocated": 2,
+          "comment": "Update genfors to new stacks",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "ea75dbfe-5145-4c92-ad41-f482c7b64a3e",
+      "createdAt": "2025-09-22T09:24:23.060Z",
+      "updatedAt": "2025-10-13T08:55:33.172Z"
+    },
+    {
+      "date": "2025-09-23T00:00:00.000Z",
+      "startTime": "11:00",
+      "endTime": "13:30",
+      "hoursAway": 0,
+      "totalHours": 2.5,
+      "projects": [
+        {
+          "id": "proj-1758626430243",
+          "name": "SP - Paid",
+          "hoursAllocated": 2.5,
+          "comment": "Sentry tests for Qdrant health",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "07d6d47f-a58d-4606-ba50-37bedc195fba",
+      "createdAt": "2025-09-23T11:20:02.777Z",
+      "updatedAt": "2025-10-13T08:55:33.178Z"
+    },
+    {
+      "date": "2025-09-24T00:00:00.000Z",
+      "startTime": "11:30",
+      "endTime": "13:30",
+      "hoursAway": 0,
+      "totalHours": 2,
+      "projects": [
+        {
+          "id": "proj-1758713203695",
+          "name": "Internt",
+          "hoursAllocated": 0.5,
+          "comment": "Pushed new fonts to prod",
+          "billable": false
+        },
+        {
+          "id": "proj-1758713204950",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "Fixed tests",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "a2808f1e-f086-4198-a76d-317ca1355554",
+      "createdAt": "2025-09-24T11:26:15.164Z",
+      "updatedAt": "2025-10-13T08:55:33.184Z"
+    },
+    {
+      "date": "2025-09-26T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:30",
+      "hoursAway": 0,
+      "totalHours": 3.5,
+      "projects": [
+        {
+          "id": "proj-1758787752871",
+          "name": "SP - Paid",
+          "hoursAllocated": 3.5,
+          "comment": "New tests",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "b2639426-b79d-43dd-8b3f-25434d58eefa",
+      "createdAt": "2025-09-25T08:02:09.915Z",
+      "updatedAt": "2025-10-13T08:55:33.190Z"
+    },
+    {
+      "date": "2025-09-29T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "11:00",
+      "hoursAway": 0,
+      "totalHours": 2,
+      "projects": [
+        {
+          "id": "proj-1758788135935",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "Zip pakker",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "24605d95-350e-4680-9b63-9d9e4941074d",
+      "createdAt": "2025-09-25T08:02:16.560Z",
+      "updatedAt": "2025-10-13T08:55:33.197Z"
+    },
+    {
+      "date": "2025-09-30T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "11:00",
+      "hoursAway": 0,
+      "totalHours": 2,
+      "projects": [
+        {
+          "id": "proj-1758788142180",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "Zip pakker",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "a9d46440-afd8-403e-a86b-67b8db098f24",
+      "createdAt": "2025-09-25T08:02:22.686Z",
+      "updatedAt": "2025-10-13T08:55:33.203Z"
+    },
+    {
+      "date": "2025-09-25T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "10:00",
+      "hoursAway": 0,
+      "totalHours": 1,
+      "projects": [
+        {
+          "id": "proj-1758788120551",
+          "name": "SP - Paid",
+          "hoursAllocated": 1,
+          "comment": "",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "42f9bd63-22ea-4e98-9a17-94625fd0985c",
+      "createdAt": "2025-09-25T08:02:28.568Z",
+      "updatedAt": "2025-10-13T08:55:33.211Z"
+    },
+    {
+      "date": "2025-10-01T00:00:00.000Z",
+      "startTime": "10:15",
+      "endTime": "17:45",
+      "hoursAway": 0,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1759745835352",
+          "name": "SP - Paid",
+          "hoursAllocated": 2.5,
+          "comment": "Debugging qdrant problems on dev",
+          "billable": true
+        },
+        {
+          "id": "proj-1759747223391",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "Feilsøking for å finne ut av Client Secret - Mangler tilgang",
+          "billable": true
+        },
+        {
+          "id": "proj-1759749886299",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "Imageshop - How to get temptoken - Send ticket to imageshop",
+          "billable": true
+        },
+        {
+          "id": "proj-1759824304079",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "qdrant oppdateringer og status oppdateringer",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "3b5bb5bb-3ffe-4a2e-89d5-b7c837c8659b",
+      "createdAt": "2025-10-06T08:13:33.297Z",
+      "updatedAt": "2025-11-06T10:24:50.757Z"
+    },
+    {
+      "date": "2025-10-07T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "13:00",
+      "hoursAway": 0,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1759929714893",
+          "name": "SP - Paid",
+          "hoursAllocated": 4,
+          "comment": "Fixing the mobile version setup from Erik",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "71f742f9-ad1e-4abd-b934-d361a6cc4f3b",
+      "createdAt": "2025-10-06T14:25:01.991Z",
+      "updatedAt": "2025-11-06T10:24:50.771Z"
+    },
+    {
+      "date": "2025-10-02T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "16:30",
+      "hoursAway": 0,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1759761257045",
+          "name": "SP - Paid",
+          "hoursAllocated": 4,
+          "comment": "16kb support for Android",
+          "billable": true
+        },
+        {
+          "id": "proj-1759827756840",
+          "name": "SP - Paid",
+          "hoursAllocated": 3.5,
+          "comment": "ImageShop temp token support and cross domain adjustments",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "d4a6af74-ba58-4bcd-b990-dc8c038ee1c6",
+      "createdAt": "2025-10-06T14:30:38.050Z",
+      "updatedAt": "2025-11-06T10:24:50.782Z"
+    },
+    {
+      "date": "2025-10-03T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "16:30",
+      "hoursAway": 0,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1759761270599",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "Updating client secrets for the pipelines",
+          "billable": true
+        },
+        {
+          "id": "proj-1759908838645",
+          "name": "Internt",
+          "hoursAllocated": 1,
+          "comment": "Reset the borrowed mac",
+          "billable": false
+        },
+        {
+          "id": "proj-1759922579471",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "Qdrant dev update to 1.15 and testing",
+          "billable": true
+        },
+        {
+          "id": "proj-1759922607096",
+          "name": "SP - Paid",
+          "hoursAllocated": 2.5,
+          "comment": "Documented Azure setup because this was missing. And documented known maintenance tasks for next time",
+          "billable": true
+        },
+        {
+          "id": "proj-1759929674769",
+          "name": "SP - Paid",
+          "hoursAllocated": 1,
+          "comment": "Fixing the mobile version setup from Erik",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "9eef5d4d-ce10-4d10-874c-9c2ddc777a76",
+      "createdAt": "2025-10-06T14:30:43.652Z",
+      "updatedAt": "2025-11-06T10:24:50.793Z"
+    },
+    {
+      "date": "2025-10-08T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "13:30",
+      "hoursAway": 0,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1759932247987",
+          "name": "SP - Paid",
+          "hoursAllocated": 4.5,
+          "comment": "Fixing the mobile version setup from Erik - Added to mobile",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "2cab1480-103e-47f9-a0f1-d666f04f3483",
+      "createdAt": "2025-10-08T07:33:45.896Z",
+      "updatedAt": "2025-11-06T10:24:50.804Z"
+    },
+    {
+      "date": "2025-10-10T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "14:30",
+      "hoursAway": 1.5,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1760125752272",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "Fixing the mobile version setup from Erik - Added to mobile",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "cc24be4a-3081-446a-8d9f-0e7cae1d1e4d",
+      "createdAt": "2025-10-10T12:09:19.982Z",
+      "updatedAt": "2025-11-06T10:24:50.814Z"
+    },
+    {
+      "date": "2025-10-09T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1760125736818",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "Fixing the mobile version setup from Erik - Added to mobile",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "01e6ff08-d3cb-458f-9b88-67d13974c1fe",
+      "createdAt": "2025-10-10T19:48:14.452Z",
+      "updatedAt": "2025-11-06T10:24:50.824Z"
+    },
+    {
+      "date": "2025-10-06T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1760362456788",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "Admin page adjustments",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "190a3f2d-c9fd-48de-99cd-08c34026820f",
+      "createdAt": "2025-10-10T19:50:16.773Z",
+      "updatedAt": "2025-11-06T10:24:50.834Z"
+    },
+    {
+      "date": "2025-10-13T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "22:00",
+      "hoursAway": 5.5,
+      "totalHours": 6,
+      "projects": [
+        {
+          "id": "proj-1760362410961",
+          "name": "SP - Paid",
+          "hoursAllocated": 4,
+          "comment": "Qdrant management admin page",
+          "billable": true
+        },
+        {
+          "id": "proj-1761077604085",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "Fixing the mobile version setup from Erik - Added to mobile",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "e46c827a-bd3f-4bee-8317-7ea04af9ae1d",
+      "createdAt": "2025-10-13T08:36:17.942Z",
+      "updatedAt": "2025-11-06T10:24:50.843Z"
+    },
+    {
+      "date": "2025-10-14T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "17:00",
+      "hoursAway": 0,
+      "totalHours": 7,
+      "projects": [
+        {
+          "id": "proj-1760445207722",
+          "name": "SP - Paid",
+          "hoursAllocated": 7,
+          "comment": "Creating qdrant management pages",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "76a1b870-dd30-4459-a852-49180036d819",
+      "createdAt": "2025-10-14T08:16:45.952Z",
+      "updatedAt": "2025-11-06T10:24:50.854Z"
+    },
+    {
+      "date": "2025-10-15T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "23:30",
+      "hoursAway": 8.5,
+      "totalHours": 6,
+      "projects": [
+        {
+          "id": "proj-1760567772588",
+          "name": "SP - Paid",
+          "hoursAllocated": 6,
+          "comment": "qdrant upgrade with issues",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "e04a7507-857f-4608-af56-5a91b307af70",
+      "createdAt": "2025-10-14T10:58:59.308Z",
+      "updatedAt": "2025-11-06T10:24:50.864Z"
+    },
+    {
+      "date": "2025-10-16T00:00:00.000Z",
+      "startTime": "07:00",
+      "endTime": "11:00",
+      "hoursAway": 1,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1760618644496",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "Problems with updating qdrant data",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "6f759c10-67b2-4fe5-9279-9d95c8299c95",
+      "createdAt": "2025-10-14T12:44:34.416Z",
+      "updatedAt": "2025-11-06T10:24:50.873Z"
+    },
+    {
+      "date": "2025-10-17T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "15:00",
+      "hoursAway": 0,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1760696257642",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "App release",
+          "billable": true
+        },
+        {
+          "id": "proj-1760959617784",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "Problems with updating qdrant data",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "0059b1a4-79b6-43d6-87be-3e4bba4ded4e",
+      "createdAt": "2025-10-14T12:44:34.448Z",
+      "updatedAt": "2025-11-06T10:24:50.882Z"
+    },
+    {
+      "date": "2025-10-20T00:00:00.000Z",
+      "startTime": "10:15",
+      "endTime": "17:45",
+      "hoursAway": 0,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1760959416984",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "Adjustments on Spir mobile release - bugs found",
+          "billable": true
+        },
+        {
+          "id": "proj-1760959629978",
+          "name": "SP - Unpaid",
+          "hoursAllocated": 3,
+          "comment": "Learning Mobile release of Spir",
+          "billable": false
+        },
+        {
+          "id": "proj-1760964511751",
+          "name": "Internt",
+          "hoursAllocated": 1,
+          "comment": "CV update",
+          "billable": false
+        },
+        {
+          "id": "proj-1760971773266",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "Wrong access on Spir web",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "bdb4641c-9155-4ce8-8452-3b241d29f1ff",
+      "createdAt": "2025-10-20T11:21:59.724Z",
+      "updatedAt": "2025-11-06T10:24:50.891Z"
+    },
+    {
+      "date": "2025-10-21T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "16:00",
+      "hoursAway": 0,
+      "totalHours": 5.5,
+      "projects": [
+        {
+          "id": "proj-1760964462971",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "Documenting how we release the apps on Spir",
+          "billable": true
+        },
+        {
+          "id": "proj-1761052493999",
+          "name": "Internt",
+          "hoursAllocated": 3.5,
+          "comment": "Genfors2 - Migrating from Supabase to PostgreSQL",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "f5ed4b55-643c-439f-9a1d-bda9908cb46c",
+      "createdAt": "2025-10-20T11:24:34.791Z",
+      "updatedAt": "2025-11-06T10:24:50.900Z"
+    },
+    {
+      "date": "2025-10-22T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "14:30",
+      "hoursAway": 0,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1761077454365",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors2 - Migrating from Supabase to PostgreSQL",
+          "billable": false
+        },
+        {
+          "id": "proj-1761127738084",
+          "name": "Internt",
+          "hoursAllocated": 1.5,
+          "comment": "Genfors2 - Created PieChart",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "117834e1-fef0-471d-8edc-29a3b35c6e23",
+      "createdAt": "2025-10-21T20:10:32.780Z",
+      "updatedAt": "2025-11-06T10:24:50.910Z"
+    },
+    {
+      "date": "2025-10-23T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "16:30",
+      "hoursAway": 0,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1761211778292",
+          "name": "Internt",
+          "hoursAllocated": 4,
+          "comment": "Genfors2 - Route cleanup, admin checks/guards and, generalmeeting status cleanup",
+          "billable": false
+        },
+        {
+          "id": "proj-1761211902528",
+          "name": "Internt",
+          "hoursAllocated": 2,
+          "comment": "Genfors2 - Shareholders adjustments",
+          "billable": false
+        },
+        {
+          "id": "proj-1761240958978",
+          "name": "Internt",
+          "hoursAllocated": 1.5,
+          "comment": "Genfors2 - Generalmeeting adjustments",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "ae12473c-c763-4ecd-9cce-8462cfa38100",
+      "createdAt": "2025-10-22T22:01:48.889Z",
+      "updatedAt": "2025-11-06T10:24:50.918Z"
+    },
+    {
+      "date": "2025-10-24T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "13:30",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1761241013210",
+          "name": "Internt",
+          "hoursAllocated": 1,
+          "comment": "Genfors2 - Generalmeeting adjustments",
+          "billable": false
+        },
+        {
+          "id": "proj-1761297756835",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "Release",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "8b50f855-d15d-40cf-970b-3d1189b008ea",
+      "createdAt": "2025-10-23T17:36:21.490Z",
+      "updatedAt": "2025-11-06T10:24:50.927Z"
+    },
+    {
+      "date": "2025-10-27T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "14:00",
+      "hoursAway": 0,
+      "totalHours": 3.5,
+      "projects": [
+        {
+          "id": "proj-1761385887567",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors2 - Building statistic overview component during voting",
+          "billable": false
+        },
+        {
+          "id": "proj-1761654482375",
+          "name": "SP - Paid",
+          "hoursAllocated": 0.5,
+          "comment": "Validating release and testing production apps",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "d1c9c750-7ba4-40b6-abee-0877e390a861",
+      "createdAt": "2025-10-25T09:50:05.484Z",
+      "updatedAt": "2025-11-06T10:24:50.937Z"
+    },
+    {
+      "date": "2025-10-28T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "16:00",
+      "hoursAway": 3,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1761386119369",
+          "name": "Intern",
+          "hoursAllocated": 2,
+          "comment": "Genfors2 - Building statistic overview component during voting",
+          "billable": true
+        },
+        {
+          "id": "proj-1761663939324",
+          "name": "Internt",
+          "hoursAllocated": 2,
+          "comment": "Genfors2 - Voting fixes and case creation adjustments",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "1650e4c5-4efb-41b2-95c3-8b19b7bebcb2",
+      "createdAt": "2025-10-25T09:54:17.092Z",
+      "updatedAt": "2025-11-06T10:24:50.946Z"
+    },
+    {
+      "date": "2025-10-29T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1761724799390",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors2 - Generalmeeting adjustments",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "eaa16449-e772-47b5-a8f8-8311523032f9",
+      "createdAt": "2025-10-29T07:58:31.117Z",
+      "updatedAt": "2025-11-06T10:24:50.955Z"
+    },
+    {
+      "date": "2025-10-30T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1761724838978",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors2 - Socket issues fixed and menu movement allowed",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "dce5ae93-9a23-440a-a4a3-021c6e60907a",
+      "createdAt": "2025-10-29T07:58:33.080Z",
+      "updatedAt": "2025-11-06T10:24:50.964Z"
+    },
+    {
+      "date": "2025-10-31T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1761724903909",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors2 - Migrating from Supabase to PostgreSQL",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "6fe84dc5-b7af-4210-a71c-a66dcc489975",
+      "createdAt": "2025-10-29T07:58:38.579Z",
+      "updatedAt": "2025-11-06T10:24:50.972Z"
+    },
+    {
+      "date": "2025-11-03T00:00:00.000Z",
+      "startTime": "11:00",
+      "endTime": "17:00",
+      "hoursAway": 0,
+      "totalHours": 6,
+      "projects": [
+        {
+          "id": "proj-1761909379185",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors2 - Adjustments on statistic and users",
+          "billable": false
+        },
+        {
+          "id": "proj-1761909408787",
+          "name": "SP - Paid",
+          "hoursAllocated": 3,
+          "comment": "Fixing login issue on Spir Dev web. To low database pooling on dev",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "03ab9c71-3614-4bbe-a9f5-04d301f208de",
+      "createdAt": "2025-10-30T10:43:04.880Z",
+      "updatedAt": "2026-01-05T09:19:31.266Z"
+    },
+    {
+      "date": "2025-11-04T00:00:00.000Z",
+      "startTime": "11:00",
+      "endTime": "14:30",
+      "hoursAway": 0,
+      "totalHours": 3.5,
+      "projects": [
+        {
+          "id": "proj-1762257052830",
+          "name": "SP - Paid",
+          "hoursAllocated": 2,
+          "comment": "Fixed an HTML issue on backend",
+          "billable": true
+        },
+        {
+          "id": "proj-1763460378906",
+          "name": "SP - Paid",
+          "hoursAllocated": 1.5,
+          "comment": "Henger i prod",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "de5875ef-3a5b-492e-a302-81082b32976e",
+      "createdAt": "2025-11-04T11:50:43.842Z",
+      "updatedAt": "2026-01-05T09:19:31.275Z"
+    },
+    {
+      "date": "2025-11-18T00:00:00.000Z",
+      "startTime": "08:00",
+      "endTime": "15:30",
+      "hoursAway": 0,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1763460431485",
+          "name": "SP - Paid",
+          "hoursAllocated": 1,
+          "comment": "Qdrant issues (ip change and crash)",
+          "billable": true
+        },
+        {
+          "id": "proj-1763460488056",
+          "name": "Internt",
+          "hoursAllocated": 2,
+          "comment": "Intervju + Forberedelser",
+          "billable": false
+        },
+        {
+          "id": "proj-1763475685495",
+          "name": "SP - Paid",
+          "hoursAllocated": 4.5,
+          "comment": "Redis issues - Trying a fix",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "2a216ee2-80fd-440c-a7ad-8280e0e7bfc3",
+      "createdAt": "2025-11-18T10:07:06.987Z",
+      "updatedAt": "2026-01-05T09:19:31.283Z"
+    },
+    {
+      "date": "2025-11-19T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "15:45",
+      "hoursAway": 0.25,
+      "totalHours": 5,
+      "projects": [
+        {
+          "id": "proj-1763563638081",
+          "name": "SP - Paid",
+          "hoursAllocated": 5,
+          "comment": "Fixing Redis issues",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "87f19bdd-c1d0-4850-8122-f0c0271bce10",
+      "createdAt": "2025-11-19T09:57:31.879Z",
+      "updatedAt": "2026-01-05T09:19:31.291Z"
+    },
+    {
+      "date": "2025-11-20T00:00:00.000Z",
+      "startTime": "10:45",
+      "endTime": "15:45",
+      "hoursAway": 0,
+      "totalHours": 5,
+      "projects": [
+        {
+          "id": "proj-1763645732525",
+          "name": "SP - Paid",
+          "hoursAllocated": 5,
+          "comment": "Login restructure, with better caching",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "b7fd5103-ac03-4bdb-8c1c-3c9c1aa0450b",
+      "createdAt": "2025-11-20T09:41:51.791Z",
+      "updatedAt": "2026-01-05T09:19:31.297Z"
+    },
+    {
+      "date": "2025-11-21T00:00:00.000Z",
+      "startTime": "11:45",
+      "endTime": "15:45",
+      "hoursAway": 0,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1763735682427",
+          "name": "Internt",
+          "hoursAllocated": 4,
+          "comment": "Genfors2 adjustments regarding blank votes and statistic",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "11a2e51c-5117-478d-993e-3e266f7d9352",
+      "createdAt": "2025-11-21T10:46:48.778Z",
+      "updatedAt": "2026-01-05T09:19:31.304Z"
+    },
+    {
+      "date": "2025-11-24T00:00:00.000Z",
+      "startTime": "11:00",
+      "endTime": "17:45",
+      "hoursAway": 1.25,
+      "totalHours": 5.5,
+      "projects": [
+        {
+          "id": "proj-1764106286934",
+          "name": "Internt",
+          "hoursAllocated": 5.5,
+          "comment": "Genfors v2",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "88084923-e840-48bb-93f7-b96ebc36b29d",
+      "createdAt": "2025-11-24T12:13:33.861Z",
+      "updatedAt": "2026-01-05T09:19:31.312Z"
+    },
+    {
+      "date": "2025-11-27T00:00:00.000Z",
+      "startTime": "15:15",
+      "endTime": "22:15",
+      "hoursAway": 4,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1764106313203",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors V2",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "7774ae59-efe1-4932-b18a-00872e82c726",
+      "createdAt": "2025-11-25T14:22:35.222Z",
+      "updatedAt": "2026-01-05T09:19:31.319Z"
+    },
+    {
+      "date": "2025-11-28T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1764154286929",
+          "name": "Internt",
+          "hoursAllocated": 2.5,
+          "comment": "Genforsv2",
+          "billable": false
+        },
+        {
+          "id": "proj-1764156094044",
+          "name": "Internt",
+          "hoursAllocated": 0.5,
+          "comment": "Timeføring",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "53ad1fb6-46ab-4eec-9e3c-82c0f487ac9c",
+      "createdAt": "2025-11-26T10:47:25.777Z",
+      "updatedAt": "2026-01-05T09:19:31.326Z"
+    },
+    {
+      "date": "2025-12-16T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "13:30",
+      "hoursAway": 0,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1764366947055",
+          "name": "Internt",
+          "hoursAllocated": 4.5,
+          "comment": "GenforsV2 - Prevotes",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "c73bbaa7-d389-4089-bc10-3112e1f7b1a6",
+      "createdAt": "2025-11-26T21:43:27.324Z",
+      "updatedAt": "2026-01-05T09:19:19.006Z"
+    },
+    {
+      "date": "2025-12-18T00:00:00.000Z",
+      "startTime": "11:00",
+      "endTime": "15:00",
+      "hoursAway": 0,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1766069597321",
+          "name": "Internt",
+          "hoursAllocated": 3.5,
+          "comment": "Genfors v2",
+          "billable": false
+        },
+        {
+          "id": "proj-1766069604482",
+          "name": "Internt",
+          "hoursAllocated": 0.5,
+          "comment": "Finkemøte",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "48864fe2-944d-4988-8559-cdff6ee30380",
+      "createdAt": "2025-12-18T13:21:53.994Z",
+      "updatedAt": "2026-01-05T09:19:19.017Z"
+    },
+    {
+      "date": "2025-12-17T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1766069623349",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors V2",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "cf46f802-dd7d-4365-a638-66388323f06a",
+      "createdAt": "2025-12-18T14:43:30.575Z",
+      "updatedAt": "2026-01-05T09:19:19.026Z"
+    },
+    {
+      "date": "2025-12-04T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "13:00",
+      "hoursAway": 0,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1766069516207",
+          "name": "SP - Paid",
+          "hoursAllocated": 4,
+          "comment": "Feil med bruker med flere verv",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "bf753996-7b0d-4ef9-8c33-e358feac56df",
+      "createdAt": "2025-12-18T14:51:29.814Z",
+      "updatedAt": "2026-01-05T09:19:19.035Z"
+    },
+    {
+      "date": "2025-12-05T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "13:00",
+      "hoursAway": 0,
+      "totalHours": 4,
+      "projects": [
+        {
+          "id": "proj-1766069551316",
+          "name": "SP - Paid",
+          "hoursAllocated": 4,
+          "comment": "Feil med bruker med flere verv",
+          "billable": true
+        }
+      ],
+      "imported": true,
+      "id": "80129588-bacd-4ba7-a9cf-7488a26b2442",
+      "createdAt": "2025-12-18T14:51:35.841Z",
+      "updatedAt": "2026-01-05T09:19:19.044Z"
+    },
+    {
+      "date": "2025-12-15T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1766069578453",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Genfors v2",
+          "billable": false
+        }
+      ],
+      "imported": true,
+      "id": "d8a44d22-49b9-4ed1-b048-c59eb65d493e",
+      "createdAt": "2025-12-18T14:52:42.218Z",
+      "updatedAt": "2026-01-05T09:19:19.053Z"
+    },
+    {
+      "date": "2025-12-19T00:00:00.000Z",
+      "startTime": "13:00",
+      "endTime": "15:00",
+      "hoursAway": 0,
+      "totalHours": 2,
+      "projects": [],
+      "imported": true,
+      "id": "d8474037-7490-469c-bfd6-41cc83ef108b",
+      "createdAt": "2025-12-19T12:23:17.670Z",
+      "updatedAt": "2026-01-05T09:19:19.061Z"
+    },
+    {
+      "date": "2026-01-05T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "22:30",
+      "hoursAway": 8,
+      "totalHours": 4.5,
+      "projects": [
+        {
+          "id": "proj-1767604810232",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 4.5,
+          "comment": "Prevotes and PowerOfAttorney adjustments and bug",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "805b2591-cd2e-479e-b28f-54baa5afc883",
+      "createdAt": "2026-01-05T09:18:48.006Z",
+      "updatedAt": "2026-01-05T21:15:41.660Z"
+    },
+    {
+      "date": "2026-01-06T00:00:00.000Z",
+      "startTime": "10:30",
+      "endTime": "22:30",
+      "hoursAway": 5,
+      "totalHours": 7,
+      "projects": [
+        {
+          "id": "proj-1767731000454",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 5.5,
+          "comment": "Last adjustments and deployment",
+          "billable": false
+        },
+        {
+          "id": "proj-1767735375863",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 1.5,
+          "comment": "Alerts when admin goes to the next case before all have voted",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "4fb133fb-3140-4064-a9dc-8eba2f6917ef",
+      "createdAt": "2026-01-06T09:26:13.159Z",
+      "updatedAt": "2026-01-06T21:36:47.629Z"
+    },
+    {
+      "date": "2026-01-07T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "18:00",
+      "hoursAway": 3.5,
+      "totalHours": 5.5,
+      "projects": [
+        {
+          "id": "proj-1767774686608",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 2,
+          "comment": "Socket reconnection and some other things",
+          "billable": false
+        },
+        {
+          "id": "proj-1767822568505",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 2.5,
+          "comment": "Claude DB migration and some other things",
+          "billable": false
+        },
+        {
+          "id": "proj-1767822616087",
+          "name": "Internt",
+          "hoursAllocated": 1,
+          "comment": "Issues with Claude - Error with pushed version 2.1.0. Trying to get it up and working again",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "c74e219e-ddf3-42ac-88dc-001aa019fec1",
+      "createdAt": "2026-01-07T08:31:10.422Z",
+      "updatedAt": "2026-01-07T21:50:58.375Z"
+    },
+    {
+      "date": "2026-01-08T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "16:30",
+      "hoursAway": 0,
+      "totalHours": 7.5,
+      "projects": [
+        {
+          "id": "proj-1767861201360",
+          "name": "Internt",
+          "hoursAllocated": 0.5,
+          "comment": "PR på fink.no",
+          "billable": false
+        },
+        {
+          "id": "proj-1767861211834",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 2,
+          "comment": "Sjekke hva som skjer når man ikke er aksjonær",
+          "billable": false
+        },
+        {
+          "id": "proj-1767885091158",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 2.5,
+          "comment": "Bedre responsive sider og andre fikser",
+          "billable": false
+        },
+        {
+          "id": "proj-1767910901760",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 2.5,
+          "comment": "Justeringer på socket.IO og fiksing av users på ShareholdersTabell",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "77551e2d-d0b8-460b-ba4f-3887153861a0",
+      "createdAt": "2026-01-08T08:33:02.599Z",
+      "updatedAt": "2026-01-08T22:22:18.149Z"
+    },
+    {
+      "date": "2026-01-09T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "14:00",
+      "hoursAway": 0,
+      "totalHours": 5,
+      "projects": [
+        {
+          "id": "proj-1767960837257",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 5,
+          "comment": "Deployment setup for github, fixing lint, test and typescript issues",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "8d989993-76f8-4178-90fd-393c991e9f1a",
+      "createdAt": "2026-01-09T09:03:42.587Z",
+      "updatedAt": "2026-01-09T12:14:31.935Z"
+    },
+    {
+      "date": "2026-01-12T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "16:00",
+      "hoursAway": 0,
+      "totalHours": 7,
+      "projects": [
+        {
+          "id": "proj-1767961347258",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 3,
+          "comment": "Build a migration setup to copy production to localhost for easier development",
+          "billable": false
+        },
+        {
+          "id": "proj-1767992243114",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 1,
+          "comment": "Added guided messages for admin, and better responsive pages",
+          "billable": false
+        },
+        {
+          "id": "proj-1767996385851",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 3,
+          "comment": "Added emailsending and slack notification when generalmeeting is published",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "d6932ac1-cda4-479a-90da-dd1ee3cf8d54",
+      "createdAt": "2026-01-09T12:21:58.535Z",
+      "updatedAt": "2026-01-10T20:08:35.317Z"
+    },
+    {
+      "date": "2026-01-13T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "hoursAway": 2,
+      "totalHours": 6,
+      "projects": [
+        {
+          "id": "proj-1768075718894",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 4,
+          "comment": "Added emailsending and slack notification when generalmeeting is published",
+          "billable": false
+        },
+        {
+          "id": "proj-1768226034337",
+          "name": "Internt",
+          "hoursAllocated": 2,
+          "comment": "Problemer med å deploye fink.no (hjelpe Håkon)",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "223e7f3b-ae8d-4fdb-9c82-724fe7ee08b7",
+      "createdAt": "2026-01-10T20:07:52.247Z",
+      "updatedAt": "2026-01-18T07:09:11.775Z"
+    },
+    {
+      "date": "2026-01-19T00:00:00.000Z",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1768900516233",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 3,
+          "comment": "Fixed some bugs",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "9d758e7d-2842-4f1e-938d-50876a1992d8",
+      "createdAt": "2026-01-20T09:14:53.137Z",
+      "updatedAt": "2026-01-20T20:55:49.826Z"
+    },
+    {
+      "date": "2026-01-20T00:00:00.000Z",
+      "startTime": "09:45",
+      "endTime": "17:45",
+      "hoursAway": 0,
+      "totalHours": 8,
+      "projects": [
+        {
+          "id": "proj-1768921792144",
+          "name": "Internt",
+          "hoursAllocated": 8,
+          "comment": "Kople tilbud",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "216c6db3-46c0-437f-b00d-0c3530ac3c73",
+      "createdAt": "2026-01-20T09:15:29.959Z",
+      "updatedAt": "2026-01-21T14:32:06.743Z"
+    },
+    {
+      "date": "2026-01-21T00:00:00.000Z",
+      "startTime": "09:45",
+      "endTime": "15:45",
+      "hoursAway": 0.5,
+      "totalHours": 5.5,
+      "projects": [
+        {
+          "id": "proj-1769005910429",
+          "name": "Internt",
+          "hoursAllocated": 5.5,
+          "comment": "Kople tilbud",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "4d3438d9-d1a2-4c4c-bc6d-45086020807d",
+      "createdAt": "2026-01-21T08:43:52.563Z",
+      "updatedAt": "2026-01-22T09:21:54.857Z"
+    },
+    {
+      "date": "2026-01-22T00:00:00.000Z",
+      "startTime": "10:15",
+      "endTime": "13:15",
+      "hoursAway": 0,
+      "totalHours": 3,
+      "projects": [
+        {
+          "id": "proj-1769178278996",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Kople",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "83a597a9-3d53-415b-9bc7-eefbd3a8080f",
+      "createdAt": "2026-01-22T09:21:13.836Z",
+      "updatedAt": "2026-01-23T14:24:46.865Z"
+    },
+    {
+      "date": "2026-01-23T00:00:00.000Z",
+      "startTime": "10:00",
+      "endTime": "15:00",
+      "hoursAway": 0,
+      "totalHours": 5,
+      "projects": [
+        {
+          "id": "proj-1769178289429",
+          "name": "Internt",
+          "hoursAllocated": 3,
+          "comment": "Kople",
+          "billable": false
+        },
+        {
+          "id": "proj-1769178291562",
+          "name": "Genfors Internprosjekt",
+          "hoursAllocated": 2,
+          "comment": "Genfors selskapsaksjer",
+          "billable": false
+        }
+      ],
+      "imported": false,
+      "id": "63b2faf5-3e6e-46f0-b078-5505dfad20b0",
+      "createdAt": "2026-01-23T14:24:15.606Z",
+      "updatedAt": "2026-01-23T14:25:11.674Z"
+    }
+  ],
+  "projects": [
+    {
+      "name": "AI Kompetanse",
+      "totalHours": 0,
+      "lastUsed": "2024-08-20",
+      "lastSaved": "2025-08-26T16:19:53.992Z",
+      "billable": false
+    },
+    {
+      "name": "Internt",
+      "totalHours": 0,
+      "lastUsed": "2024-08-20",
+      "billable": false,
+      "lastSaved": "2025-08-26T19:01:57.043Z"
+    },
+    {
+      "name": "SP - Unpaid",
+      "totalHours": 0,
+      "lastUsed": "2024-08-20",
+      "billable": false
+    },
+    {
+      "name": "SP - Paid",
+      "totalHours": 0,
+      "lastUsed": "2024-08-20",
+      "billable": true,
+      "lastSaved": "2025-08-26T19:02:15.446Z"
+    },
+    {
+      "name": "Permisjon",
+      "billable": false,
+      "totalHours": 0,
+      "lastUsed": "2025-08-26"
+    },
+    {
+      "name": "Genfors Internprosjekt",
+      "billable": false,
+      "totalHours": 0,
+      "lastUsed": "2026-01-05"
+    }
+  ]
+}
