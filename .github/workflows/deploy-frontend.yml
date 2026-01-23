@@ -29,7 +29,7 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
-          VUE_APP_BACKEND_SERVER: https://randomboardgame.zellflagstad.com/api
+          VUE_APP_BACKEND_SERVER: https://timetracking.zellflagstad.com/api
 
       - name: Upload frontend via SCP
         uses: appleboy/scp-action@v0.1.7
@@ -48,8 +48,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /srv/www/character-picker
-            docker compose -f docker-compose.yml up -d --build character-picker-frontend
+            cd /srv/www/timetracking
+            docker compose -f docker-compose.yml up -d --build timetracking-frontend
 
       - name: Purge Cloudflare cache
         run: |
