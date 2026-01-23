@@ -29,7 +29,7 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
-          VUE_APP_BACKEND_SERVER: https://time.zellflagstad.com/api
+          VITE_API_URL: https://time.zellflagstad.com/api
 
       - name: Upload frontend via SCP
         uses: appleboy/scp-action@v0.1.7
@@ -40,6 +40,16 @@ jobs:
           source: "frontend/dist/*"
           target: ${{ secrets.FRONTEND_PATH }}
           strip_components: 2
+
+      - name: Upload nginx.conf via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "frontend/nginx.conf"
+          target: ${{ secrets.FRONTEND_PATH }}
+          strip_components: 1
 
       - name: Restart frontend container
         uses: appleboy/ssh-action@v1.0.3
