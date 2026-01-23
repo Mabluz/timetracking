@@ -47,6 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
       const data = await response.json();
       token.value = data.token;
       localStorage.setItem('auth_token', data.token);
+      console.log('Login successful, token stored:', token.value ? 'YES' : 'NO');
       return true;
     } catch (error) {
       console.error('Login error:', error);
@@ -66,6 +67,7 @@ export const useAuthStore = defineStore('auth', () => {
    * Get the authorization header for API requests
    */
   const getAuthHeader = (): Record<string, string> => {
+    console.log('getAuthHeader called, token exists:', !!token.value);
     if (!token.value) {
       return {};
     }

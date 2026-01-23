@@ -17,6 +17,8 @@ api.interceptors.request.use((config) => {
   const authStore = useAuthStore()
   const authHeader = authStore.getAuthHeader()
   
+  console.log('API Request:', config.url, 'Has token:', !!authHeader.Authorization)
+  
   if (authHeader.Authorization) {
     config.headers.Authorization = authHeader.Authorization
   }
