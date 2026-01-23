@@ -31,7 +31,7 @@ const localStorageHelper = {
       return []
     }
   },
-  
+
   setTimeEntries(entries: TimeEntry[]): void {
     try {
       localStorage.setItem(STORAGE_KEYS.TIME_ENTRIES, JSON.stringify(entries))
@@ -39,7 +39,7 @@ const localStorageHelper = {
       console.error('Error saving time entries to localStorage:', error)
     }
   },
-  
+
   getProjects(): ProjectSummary[] {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.PROJECTS)
@@ -49,7 +49,7 @@ const localStorageHelper = {
       return []
     }
   },
-  
+
   setProjects(projects: ProjectSummary[]): void {
     try {
       localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(projects))
@@ -57,7 +57,7 @@ const localStorageHelper = {
       console.error('Error saving projects to localStorage:', error)
     }
   },
-  
+
   getOfflineQueue(): any[] {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.OFFLINE_QUEUE)
@@ -67,7 +67,7 @@ const localStorageHelper = {
       return []
     }
   },
-  
+
   setOfflineQueue(queue: any[]): void {
     try {
       localStorage.setItem(STORAGE_KEYS.OFFLINE_QUEUE, JSON.stringify(queue))
@@ -75,17 +75,17 @@ const localStorageHelper = {
       console.error('Error saving offline queue to localStorage:', error)
     }
   },
-  
+
   addToOfflineQueue(action: any): void {
     const queue = this.getOfflineQueue()
     queue.push({ ...action, timestamp: Date.now() })
     this.setOfflineQueue(queue)
   },
-  
+
   clearOfflineQueue(): void {
     this.setOfflineQueue([])
   },
-  
+
   getLastEditedEntry(): string | null {
     try {
       return localStorage.getItem(STORAGE_KEYS.LAST_EDITED_ENTRY)
@@ -94,7 +94,7 @@ const localStorageHelper = {
       return null
     }
   },
-  
+
   setLastEditedEntry(entryId: string): void {
     try {
       localStorage.setItem(STORAGE_KEYS.LAST_EDITED_ENTRY, entryId)
@@ -128,7 +128,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
       console.error('timeEntries.value is not an array!', timeEntries.value)
       return []
     }
-    
+
     return [...timeEntries.value].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   })
 
@@ -153,16 +153,16 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     try {
       loading.value = true
       error.value = null
-      
+
       if (isOnline.value) {
         // Use direct fetch instead of axios to avoid issues
         try {
-          const response = await fetch('http://localhost:3010/api/timeentries')
+          const response = await fetch('http://localhost:3011/api/timeentries')
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
           }
           const entries = await response.json()
-          
+
           // Ensure we have an array
           if (Array.isArray(entries)) {
             timeEntries.value = entries
@@ -176,7 +176,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
           console.error('Direct fetch failed, trying axios...', fetchError)
           // Fallback to axios
           const entries = await timeEntriesApi.getAll()
-          
+
           if (Array.isArray(entries)) {
             timeEntries.value = entries
             // Cache in localStorage
@@ -225,7 +225,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     try {
       loading.value = true
       error.value = null
-      
+
       if (isOnline.value) {
         const result = await timeEntriesApi.create(entry)
         timeEntries.value.push(result)
@@ -274,7 +274,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
   const updateTimeEntry = async (id: string, updates: Partial<TimeEntry>) => {
     try {
       error.value = null
-      
+
       if (isOnline.value) {
         const result = await timeEntriesApi.update(id, updates)
         const index = timeEntries.value.findIndex(entry => entry.id === id)
@@ -390,20 +390,20 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
 
   const calculateTotalHours = (startTime: string, endTime: string, hoursAway: number): number => {
     if (!startTime || !endTime) return 0
-    
+
     const [startHour, startMinute] = startTime.split(':').map(Number)
     const [endHour, endMinute] = endTime.split(':').map(Number)
-    
+
     const startTotalMinutes = startHour * 60 + startMinute
     const endTotalMinutes = endHour * 60 + endMinute
-    
+
     let totalMinutes = endTotalMinutes - startTotalMinutes
-    
+
     // Handle overnight shifts
     if (totalMinutes < 0) {
       totalMinutes += 24 * 60
     }
-    
+
     const totalHours = totalMinutes / 60
     return Math.max(0, totalHours - hoursAway)
   }
@@ -411,7 +411,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
   const addTodayEntry = () => {
     const today = new Date().toISOString().split('T')[0]
     const existingEntry = timeEntries.value.find(entry => entry.date === today)
-    
+
     if (!existingEntry) {
       const defaultEntry = {
         date: today,
@@ -456,7 +456,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     let totalHours = 0
     let billableHours = 0
     let nonBillableHours = 0
-    
+
     // Overtime calculations
     const defaultWorkDayHours = Number(import.meta.env.VITE_DEFAULT_WORK_DAY_HOURS) || 7.5
     let totalOvertimeHours = 0
@@ -464,14 +464,14 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
 
     yearEntries.forEach(entry => {
       totalHours += entry.totalHours
-      
+
       // Calculate overtime for each entry
       const entryOvertimeHours = Math.max(0, (entry.totalHours || 0) - defaultWorkDayHours)
       if (entryOvertimeHours > 0) {
         totalOvertimeHours += entryOvertimeHours
         overtimeDays++
       }
-      
+
       entry.projects.forEach(project => {
         const existing = projectStats.get(project.name) || {
           name: project.name,
@@ -481,12 +481,12 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
           billableHours: 0,
           nonBillableHours: 0
         }
-        
+
         existing.totalHours += project.hoursAllocated
-        
+
         // Use project's billable property, defaulting to true if not specified
         const isBillable = project.billable !== false
-        
+
         if (isBillable) {
           existing.billableHours += project.hoursAllocated
           existing.revenue += project.hoursAllocated * DEFAULT_HOURLY_RATE
@@ -495,7 +495,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
           existing.nonBillableHours += project.hoursAllocated
           nonBillableHours += project.hoursAllocated
         }
-        
+
         projectStats.set(project.name, existing)
       })
     })
@@ -510,7 +510,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
         // Primary sort: by revenue (descending)
         const revenueDiff = b.revenue - a.revenue
         if (revenueDiff !== 0) return revenueDiff
-        
+
         // Secondary sort: by total hours (descending) when revenue is the same
         return b.totalHours - a.totalHours
       })
@@ -518,7 +518,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     // Monthly breakdown
     const monthlyStats = new Map<string, MonthlyStats>()
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    
+
     // Initialize all months
     monthNames.forEach((month, index) => {
       const monthKey = `${year}-${String(index + 1).padStart(2, '0')}`
@@ -533,46 +533,46 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
       const monthKey = entry.date.substring(0, 7) // YYYY-MM
       const monthIndex = parseInt(entry.date.substring(5, 7)) - 1
       const monthName = monthNames[monthIndex]
-      
+
       const monthData = monthlyStats.get(monthKey) || {
         month: monthName,
         totalHours: 0,
         projectHours: {}
       }
-      
+
       monthData.totalHours += entry.totalHours
-      
+
       entry.projects.forEach(project => {
         monthData.projectHours[project.name] = (monthData.projectHours[project.name] || 0) + project.hoursAllocated
       })
-      
+
       monthlyStats.set(monthKey, monthData)
     })
 
     const monthlyBreakdown = Array.from(monthlyStats.values())
-    
+
     // Find busiest and least busy months
     const monthsWithHours = monthlyBreakdown.filter(month => month.totalHours > 0)
-    const busiestMonth = monthsWithHours.reduce((max, month) => 
-      month.totalHours > max.totalHours ? month : max, 
+    const busiestMonth = monthsWithHours.reduce((max, month) =>
+      month.totalHours > max.totalHours ? month : max,
       monthsWithHours[0] || { month: 'N/A', totalHours: 0 }
     )
-    const leastBusyMonth = monthsWithHours.reduce((min, month) => 
-      month.totalHours < min.totalHours ? month : min, 
+    const leastBusyMonth = monthsWithHours.reduce((min, month) =>
+      month.totalHours < min.totalHours ? month : min,
       monthsWithHours[0] || { month: 'N/A', totalHours: 0 }
     )
 
     // Calculate working days and streaks
     const workingDays = yearEntries.length
     const sortedEntries = [...yearEntries].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    
+
     let longestStreak = 0
     let currentStreak = 0
     let lastDate: Date | null = null
 
     sortedEntries.forEach(entry => {
       const currentDate = new Date(entry.date)
-      
+
       if (lastDate) {
         const daysDiff = Math.round((currentDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24))
         if (daysDiff === 1) {
@@ -584,7 +584,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
       } else {
         currentStreak = 1
       }
-      
+
       lastDate = currentDate
     })
     longestStreak = Math.max(longestStreak, currentStreak)
@@ -603,7 +603,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
 
     // Fun coffee calculation (1 cup per 4 hours worked)
     const coffeeEquivalent = Math.round(totalHours / 4)
-    
+
     // Calculate overtime statistics
     const averageOvertimeHours = overtimeDays > 0 ? totalOvertimeHours / overtimeDays : 0
     const overtimePercentage = totalHours > 0 ? (totalOvertimeHours / totalHours) * 100 : 0
@@ -643,16 +643,16 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
   const checkOnlineStatus = () => {
     isOnline.value = navigator.onLine
   }
-  
+
   // Sync offline queue when back online
   const syncOfflineQueue = async () => {
     if (!isOnline.value) return
-    
+
     const queue = localStorageHelper.getOfflineQueue()
     if (queue.length === 0) return
-    
+
     console.log('Syncing offline queue:', queue.length, 'items')
-    
+
     for (const action of queue) {
       try {
         switch (action.type) {
@@ -672,37 +672,37 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
         continue
       }
     }
-    
+
     // Clear queue after successful sync
     localStorageHelper.clearOfflineQueue()
-    
+
     // Refresh data from server
     await Promise.all([fetchTimeEntries(), fetchProjects()])
   }
-  
+
   // Initialize
   const initialize = async () => {
     // Reset to safe defaults
     timeEntries.value = []
     projects.value = []
     error.value = null
-    
+
     // Set up network status listeners
     window.addEventListener('online', () => {
       checkOnlineStatus()
       syncOfflineQueue()
     })
     window.addEventListener('offline', checkOnlineStatus)
-    
+
     // Initial status check
     checkOnlineStatus()
-    
+
     // Load data
     await Promise.all([fetchTimeEntries(), fetchProjects()])
-    
+
     // Load last edited entry
     loadLastEditedEntry()
-    
+
     // Sync offline queue if online
     if (isOnline.value) {
       await syncOfflineQueue()
@@ -719,11 +719,11 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     isOnline,
     highlightDateRange,
     lastEditedEntry,
-    
+
     // Getters
     sortedTimeEntries,
     totalHoursToday,
-    
+
     // Actions
     fetchTimeEntries,
     fetchProjects,
