@@ -29,7 +29,7 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
-          VUE_APP_BACKEND_SERVER: https://timetracking.zellflagstad.com/api
+          VUE_APP_BACKEND_SERVER: https://time.zellflagstad.com/api
 
       - name: Upload frontend via SCP
         uses: appleboy/scp-action@v0.1.7
