@@ -157,7 +157,8 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
       if (isOnline.value) {
         // Use direct fetch instead of axios to avoid issues
         try {
-          const response = await fetch('http://localhost:3011/api/timeentries')
+          const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3011';
+          const response = await fetch(`${API_URL}/api/timeentries`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
           }
