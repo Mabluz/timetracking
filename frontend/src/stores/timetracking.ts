@@ -597,6 +597,12 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     })
     longestStreak = Math.max(longestStreak, currentStreak)
 
+    // Calculate average daily hours
+    const averageDailyHours = workingDays > 0 ? totalHours / workingDays : 0
+
+    // Fun coffee calculation (1 cup per 4 hours worked)
+    const coffeeEquivalent = Math.round(totalHours / 4)
+
     // Generate milestones
     const milestones: string[] = []
     
@@ -695,12 +701,6 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     if (uniqueProjects >= 5) milestones.push('🎯 Project Explorer: 5+ Different Projects')
     if (uniqueProjects >= 10) milestones.push('🔥 Project Master: 10+ Different Projects')
     if (uniqueProjects >= 20) milestones.push('🚀 Jack of All Trades: 20+ Different Projects')
-
-    // Calculate average daily hours
-    const averageDailyHours = workingDays > 0 ? totalHours / workingDays : 0
-
-    // Fun coffee calculation (1 cup per 4 hours worked)
-    const coffeeEquivalent = Math.round(totalHours / 4)
 
     // Calculate overtime statistics
     const averageOvertimeHours = overtimeDays > 0 ? totalOvertimeHours / overtimeDays : 0
