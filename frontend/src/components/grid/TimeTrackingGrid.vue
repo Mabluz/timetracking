@@ -18,6 +18,17 @@
             <span class="checkbox-text">Close other dropdowns</span>
           </label>
         </div>
+        <div class="dropdown-control">
+          <label class="dropdown-toggle-checkbox">
+            <input
+              type="checkbox"
+              v-model="hideImportedRows"
+              class="checkbox-input"
+            />
+            <span class="checkbox-label">👁️</span>
+            <span class="checkbox-text">Hide imported rows</span>
+          </label>
+        </div>
         <div class="file-actions">
           <input
             ref="fileInputRef"
@@ -104,11 +115,18 @@ const expandedRows = ref(new Set<string>())
 const gridRef = ref<HTMLElement>()
 const fileInputRef = ref<HTMLInputElement>()
 const closeOtherDropdowns = ref(true)
+const hideImportedRows = ref(true)
 
 // Removed global keyboard navigation
 
 // Computed properties
-const sortedTimeEntries = computed(() => store.sortedTimeEntries)
+const sortedTimeEntries = computed(() => {
+  const entries = store.sortedTimeEntries
+  if (hideImportedRows.value) {
+    return entries.filter(entry => !entry.imported)
+  }
+  return entries
+})
 const loading = computed(() => store.loading)
 const error = computed(() => store.error)
 const highlightDateRange = computed(() => store.highlightDateRange)
@@ -202,7 +220,8 @@ const importData = async (event: Event) => {
             endTime: entry.endTime,
             hoursAway: entry.hoursAway || 0,
             totalHours: entry.totalHours || 0,
-            projects: entry.projects || []
+            projects: entry.projects || [],
+            imported: true
           })
         } catch (error) {
           console.error('Failed to import entry:', entry, error)
