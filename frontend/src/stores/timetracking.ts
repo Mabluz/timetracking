@@ -599,12 +599,102 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
 
     // Generate milestones
     const milestones: string[] = []
-    if (totalHours >= 1000) milestones.push('🎯 1000+ Hours Logged')
-    if (totalHours >= 1500) milestones.push('🚀 1500+ Hours Achieved')
-    if (totalHours >= 2000) milestones.push('⭐ 2000+ Hours Mastery')
-    if (billableHours / totalHours > 0.8) milestones.push('💰 80%+ Billable Hours')
-    if (longestStreak >= 30) milestones.push('🔥 30+ Day Work Streak')
-    if (workingDays >= 200) milestones.push('📅 200+ Working Days')
+    
+    // 🟢 BEGINNER MILESTONES (0-10% effort)
+    if (totalHours >= 10) milestones.push('🌱 Getting Started: 10+ Hours')
+    if (totalHours >= 50) milestones.push('🔥 Month Warrior: 50+ Hours')
+    if (longestStreak >= 5) milestones.push('📈 Consistency: 5-Day Streak')
+    if (workingDays >= 25) milestones.push('🗓️ Dedicated: 25+ Work Days')
+    if (totalHours >= 100) milestones.push('💪 Century Club: 100+ Hours')
+    if (timeEntries.value.length >= 10) milestones.push('📝 Regular: First 10 Entries')
+    if (averageDailyHours >= 6) milestones.push('⚡ Productive: 6h Daily Average')
+    if (overtimeDays >= 1) milestones.push('💼 Overtime Veteran: First Overtime Day')
+    
+    // 🟡 INTERMEDIATE MILESTONES (10-30% effort)
+    if (totalHours >= 250) milestones.push('🚀 Acceleration: 250+ Hours')
+    if (longestStreak >= 14) milestones.push('🔥 Fortitude: 2-Week Streak')
+    if (workingDays >= 50) milestones.push('🎯 Dedicated Professional: 50+ Days')
+    if (totalHours >= 500) milestones.push('🎯 Half Marathon: 500+ Hours')
+    if (billableHours / totalHours > 0.7) milestones.push('💼 Client Focus: 70%+ Billable')
+    if (averageDailyHours >= 7) milestones.push('⏰ Dedicated: 7h Daily Average')
+    if (totalOvertimeHours >= 50) milestones.push('🔥 Overtime Master: 50h Overtime')
+    if (timeEntries.value.length >= 50) milestones.push('📊 Diligent: 50+ Time Entries')
+    
+    // 🟠 ADVANCED MILESTONES (30-60% effort)
+    if (totalHours >= 1000) milestones.push('🎯 Thousand Club: 1000+ Hours')
+    if (longestStreak >= 30) milestones.push('🔥 Iron Will: 30-Day Streak')
+    if (workingDays >= 100) milestones.push('💼 Dedicated Expert: 100+ Days')
+    if (totalHours >= 1500) milestones.push('🚀 High Achiever: 1500+ Hours')
+    if (billableHours / totalHours > 0.8) milestones.push('💰 Efficiency Master: 80%+ Billable')
+    if (averageDailyHours >= 8) milestones.push('⚡ Workhorse: 8h Daily Average')
+    if (coffeeEquivalent >= 250) milestones.push('☕ Caffeinated: 250+ Coffee Cups')
+    if (totalOvertimeHours >= 100) milestones.push('🔥 Overtime Champion: 100h Overtime')
+    if (timeEntries.value.length >= 100) milestones.push('📝 Meticulous: 100+ Entries')
+    
+    // 🔥 EXPERT MILESTONES (60-100% effort)
+    if (totalHours >= 2000) milestones.push('⭐ Mastery: 2000+ Hours')
+    if (longestStreak >= 60) milestones.push('🔥 Unstoppable: 60-Day Streak')
+    if (workingDays >= 200) milestones.push('📅 Work Legend: 200+ Days')
+    if (totalHours >= 2500) milestones.push('🚀 Superhuman: 2500+ Hours')
+    if (billableHours / totalHours > 0.9) milestones.push('💰 Perfect Client: 90%+ Billable')
+    if (averageDailyHours >= 9) milestones.push('⚡ Machine: 9h Daily Average')
+    if (coffeeEquivalent >= 500) milestones.push('☕ Coffee Master: 500+ Cups')
+    if (totalOvertimeHours >= 200) milestones.push('🔥 Overtime Titan: 200h Overtime')
+    if (timeEntries.value.length >= 200) milestones.push('📝 Data Master: 200+ Entries')
+    
+    // 🏆 LEGENDARY MILESTONES (Ultra Rare)
+    if (totalHours >= 3000) milestones.push('👑 Legend: 3000+ Hours')
+    if (longestStreak >= 90) milestones.push('🔥 Immortal: 90-Day Streak')
+    if (workingDays >= 250) milestones.push('📅 Workaholic: 250+ Days')
+    if (totalHours >= 4000) milestones.push('🚀 Demigod: 4000+ Hours')
+    if (billableHours / totalHours >= 1.0) milestones.push('💰 Perfect Year: 100% Billable')
+    if (averageDailyHours >= 10) milestones.push('⚡ Beast Mode: 10h Daily Average')
+    if (totalOvertimeHours >= 500) milestones.push('🔥 Overtime God: 500h Overtime')
+    if (timeEntries.value.length >= 500) milestones.push('📝 Historian: 500+ Entries')
+    
+    // 🎯 SPECIAL ACHIEVEMENTS (Based on specific patterns)
+    // Monthly achievements
+    const monthlyHours = new Map<string, number>()
+    yearEntries.forEach(entry => {
+      const month = entry.date.substring(0, 7)
+      monthlyHours.set(month, (monthlyHours.get(month) || 0) + entry.totalHours)
+    })
+    
+    // Check for high monthly hours
+    const maxMonthlyHours = Math.max(...monthlyHours.values())
+    if (maxMonthlyHours >= 100) milestones.push('📈 Month Crusher: 100h in One Month')
+    if (maxMonthlyHours >= 150) milestones.push('🔥 Month Beast: 150h in One Month')
+    if (maxMonthlyHours >= 200) milestones.push('🚀 Month Legend: 200h in One Month')
+    
+    // Weekend warrior achievement (work on weekends)
+    const weekendDays = yearEntries.filter(entry => {
+      const day = new Date(entry.date).getDay()
+      return day === 0 || day === 6 // Sunday or Saturday
+    }).length
+    if (weekendDays >= 10) milestones.push('🎮 Weekend Warrior: 10+ Weekend Days')
+    if (weekendDays >= 25) milestones.push('🔥 Weekend Champion: 25+ Weekend Days')
+    
+    // Marathon day achievement (12+ hours in one day)
+    const maxDayHours = Math.max(...yearEntries.map(entry => entry.totalHours))
+    if (maxDayHours >= 12) milestones.push('🏃‍♂️ Marathon Day: 12h+ in One Day')
+    if (maxDayHours >= 15) milestones.push('🚀 Ultra Marathon: 15h+ in One Day')
+    if (maxDayHours >= 20) milestones.push('👑 Superhuman: 20h+ in One Day')
+    
+    // Perfect consistency (every possible work day)
+    const possibleWorkDays = Math.ceil((new Date(year, 11, 31) - new Date(year, 0, 1)) / (1000 * 60 * 60 * 24))
+    const consistencyPercentage = (workingDays / possibleWorkDays) * 100
+    if (consistencyPercentage >= 80) milestones.push('🎯 Consistency King: 80%+ Work Days')
+    if (consistencyPercentage >= 90) milestones.push('🔥 Work Machine: 90%+ Work Days')
+    if (consistencyPercentage >= 95) milestones.push('👑 Perfect Attendance: 95%+ Work Days')
+    
+    // Zero overtime achievement (rare)
+    if (totalOvertimeHours === 0 && totalHours >= 500) milestones.push('⚖️ Balanced Life: Zero Overtime at 500h+')
+    
+    // Project diversity achievement
+    const uniqueProjects = new Set(yearEntries.flatMap(entry => entry.projects.map(p => p.name))).size
+    if (uniqueProjects >= 5) milestones.push('🎯 Project Explorer: 5+ Different Projects')
+    if (uniqueProjects >= 10) milestones.push('🔥 Project Master: 10+ Different Projects')
+    if (uniqueProjects >= 20) milestones.push('🚀 Jack of All Trades: 20+ Different Projects')
 
     // Calculate average daily hours
     const averageDailyHours = workingDays > 0 ? totalHours / workingDays : 0
