@@ -687,7 +687,7 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     if (maxDayHours >= 20) milestones.push('👑 Superhuman: 20h+ in One Day')
     
     // Perfect consistency (every possible work day)
-    const possibleWorkDays = Math.ceil((new Date(year, 11, 31) - new Date(year, 0, 1)) / (1000 * 60 * 60 * 24))
+    const possibleWorkDays = Math.ceil((new Date(year, 11, 31).getTime() - new Date(year, 0, 1).getTime()) / (1000 * 60 * 60 * 24))
     const consistencyPercentage = possibleWorkDays > 0 ? (workingDays / possibleWorkDays) * 100 : 0
     if (consistencyPercentage >= 80) milestones.push('🎯 Consistency King: 80%+ Work Days')
     if (consistencyPercentage >= 90) milestones.push('🔥 Work Machine: 90%+ Work Days')
