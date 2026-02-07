@@ -681,14 +681,14 @@ export const useTimeTrackingStore = defineStore('timetracking', () => {
     if (weekendDays >= 25) milestones.push('🔥 Weekend Champion: 25+ Weekend Days')
     
     // Marathon day achievement (12+ hours in one day)
-    const maxDayHours = Math.max(...yearEntries.map(entry => entry.totalHours))
+    const maxDayHours = yearEntries.length > 0 ? Math.max(...yearEntries.map(entry => entry.totalHours)) : 0
     if (maxDayHours >= 12) milestones.push('🏃‍♂️ Marathon Day: 12h+ in One Day')
     if (maxDayHours >= 15) milestones.push('🚀 Ultra Marathon: 15h+ in One Day')
     if (maxDayHours >= 20) milestones.push('👑 Superhuman: 20h+ in One Day')
     
     // Perfect consistency (every possible work day)
     const possibleWorkDays = Math.ceil((new Date(year, 11, 31) - new Date(year, 0, 1)) / (1000 * 60 * 60 * 24))
-    const consistencyPercentage = (workingDays / possibleWorkDays) * 100
+    const consistencyPercentage = possibleWorkDays > 0 ? (workingDays / possibleWorkDays) * 100 : 0
     if (consistencyPercentage >= 80) milestones.push('🎯 Consistency King: 80%+ Work Days')
     if (consistencyPercentage >= 90) milestones.push('🔥 Work Machine: 90%+ Work Days')
     if (consistencyPercentage >= 95) milestones.push('👑 Perfect Attendance: 95%+ Work Days')
